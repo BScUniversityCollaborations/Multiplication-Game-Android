@@ -41,10 +41,9 @@
     <string name="button_sign_out">Sign Out</string>
 
     <!-- Input Texts -->
-    <string name="input_txt_hint_phone_number">Your mobile number</string>
-    <string name="input_txt_hint_first_name">Your first name</string>
-    <string name="input_txt_hint_last_name">Your last name</string>
-    <string name="input_txt_hint_address">Your address</string>
-    <string name="input_txt_hint_zip_code">Your zip code</string>
+    <string name="input_txt_hint_dash">-</string>
+    <string name="input_txt_hint_email">Your email address</string>
+    <string name="input_txt_hint_password">Your password</string>
+    <string name="input_txt_hint_name">Your name</string>
 
 </resources>
