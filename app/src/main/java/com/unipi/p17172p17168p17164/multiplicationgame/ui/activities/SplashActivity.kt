@@ -5,14 +5,13 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivitySplashBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     // ~~~~~~~~ VARIABLES ~~~~~~~~
     private lateinit var binding: ActivitySplashBinding
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
