@@ -65,6 +65,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun goToSignInActivity(context: Context) {
         startActivity(Intent(context, SignInActivity::class.java))
+        finish()
     }
 
     fun goToSignInActivity(context: Context, showRegisteredSnackBar: Boolean, userEmail: String) {

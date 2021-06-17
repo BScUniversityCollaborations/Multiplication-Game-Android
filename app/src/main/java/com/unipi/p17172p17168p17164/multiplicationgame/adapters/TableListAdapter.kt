@@ -10,7 +10,6 @@ import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesTestActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 
-
 /**
  * A adapter class for tables list items.
  */

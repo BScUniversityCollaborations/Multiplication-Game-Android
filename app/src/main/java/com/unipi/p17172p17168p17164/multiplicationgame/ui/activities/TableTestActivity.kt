@@ -1,13 +1,14 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.adapters.TablesListAdapter
 import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityMainMenuBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTablesListBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
-import java.util.*
 
 class TablesTestActivity : BaseActivity() {
     // ~~~~~~~~ VARIABLES ~~~~~~~~
@@ -41,7 +42,7 @@ class TablesTestActivity : BaseActivity() {
             binding.apply {
                 recyclerView.run {
                     adapter = tablesListAdapter
-                    layoutManager = LinearLayoutManager(this@TablesTestActivity, LinearLayoutManager.VERTICAL, false)
+                    // layoutManager = LinearLayoutManager(this@TablesTestActivity, LinearLayoutManager.VERTICAL, false)
                     setHasFixedSize(true)
                 }
             }

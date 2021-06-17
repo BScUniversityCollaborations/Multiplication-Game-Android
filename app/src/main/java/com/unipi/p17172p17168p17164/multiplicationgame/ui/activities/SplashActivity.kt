@@ -47,7 +47,6 @@ class SplashActivity : BaseActivity() {
         // Execute a task in the background thread after some seconds.
         backgroundExecutor.schedule({
             goToSignInActivity(this@SplashActivity)
-            finish() // Closing the current activity so the user can't go back to it with the back button and also there is no reason to keep it open.
         }, Constants.SPLASH_SCREEN_DELAY, TimeUnit.MILLISECONDS)
     }
 }

@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @IgnoreExtraProperties
 data class Table(
-    val tableId: String = "",
+    var tableId: String = "",
     val name: String = "",
     val desc: String = "",
     val number: Int = 0,

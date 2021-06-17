@@ -13,6 +13,7 @@ class SnackBarSuccessClass(
     parent: ViewGroup,
     content: SnackBarSuccessView
 ) : BaseTransientBottomBar<SnackBarSuccessClass>(parent, content, content) {
+
     private val binding: SnackbarSuccessBinding = SnackbarSuccessBinding.inflate(
         LayoutInflater.from(view.context)
     )
