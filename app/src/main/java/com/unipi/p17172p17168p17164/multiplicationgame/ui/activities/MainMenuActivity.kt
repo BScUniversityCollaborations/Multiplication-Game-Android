@@ -24,8 +24,8 @@ class MainMenuActivity : BaseActivity() {
 //                startActivity(intent)
             }
             btnTables.setOnClickListener {
-//                val intent = Intent(this@MainMenuActivity, ProfileDetailsActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this@MainMenuActivity, TablesTestActivity::class.java)
+                startActivity(intent)
             }
             btnMistakes.setOnClickListener {
 //                val intent = Intent(this@MainMenuActivity, ProfileDetailsActivity::class.java)

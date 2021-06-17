@@ -1,56 +1,38 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
-import android.app.ActionBar.DISPLAY_SHOW_CUSTOM
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
-import com.unipi.p17172.emarket.adapters.ViewPagerOrdersAdapter
-import com.unipi.p17172.emarket.databinding.ActivityOrdersBinding
-import com.unipi.p17172.emarket.ui.activities.BaseActivity
-import com.unipi.p17172.emarket.ui.fragments.PendingOrdersFragment
-import com.unipi.p17172.emarket.ui.fragments.PreviousOrdersFragment
 import com.unipi.p17172p17168p17164.multiplicationgame.R
-import java.util.*
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityUserProfileBinding
 
 
 class ProfileDetailsActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityOrdersBinding
+    private lateinit var binding: ActivityUserProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityOrdersBinding.inflate(layoutInflater)
+        binding = ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpUI()
-        init()
+        setupUI()
     }
 
-    private fun setUpUI() {
+    private fun setupUI() {
         setUpActionBar()
-        setupTabs()
     }
 
     private fun setUpActionBar() {
-        setSupportActionBar(binding.toolbar.root)
-        Objects.requireNonNull(supportActionBar)!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        val actionBar: android.app.ActionBar? = actionBar
-        actionBar?.let {
-            it.displayOptions = DISPLAY_SHOW_CUSTOM
-            it.setCustomView(R.layout.toolbar_activity_main)
+        binding.toolbar.apply {
+            setSupportActionBar(root)
+            textViewLabel.text = getString(R.string.txt_profile)
         }
-    }
 
-
-    private fun setupTabs() {
-        val adapter = ViewPagerOrdersAdapter(supportFragmentManager)
-        adapter.addFragment(PendingOrdersFragment())
-        adapter.addFragment(PreviousOrdersFragment())
-        binding.viewPagerBody.adapter = adapter
-        binding.tabs.setupWithViewPager(binding.viewPagerBody)
-    }
-
-    private fun init() {
-
+        val actionBar = supportActionBar
+        actionBar?.let {
+            it.setDisplayShowCustomEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp)
+        }
     }
 }

@@ -8,8 +8,11 @@ import android.text.TextWatcher
 import android.view.animation.AnimationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.unipi.p17172.emarket.utils.SnackBarErrorClass
-import com.unipi.p17172.emarket.utils.SnackBarSuccessClass
 import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivitySignInBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.SnackBarSuccessClass
 
 
 class SignInActivity : BaseActivity() {
@@ -28,14 +31,15 @@ class SignInActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_REG_USERS_SNACKBAR)) {
             if (intent.extras?.getBoolean(Constants.EXTRA_REG_USERS_SNACKBAR) == true) {
                 SnackBarSuccessClass
-                    .make(binding.root, getString(R.string.txt_congratulations_2))
+                    .make(binding.root,
+                        getString(R.string.txt_congratulations),
+                        getString(R.string.txt_sign_up_successful))
                     .show()
             }
             binding.inputTxtEmail.setText(intent.getStringExtra(Constants.EXTRA_USER_EMAIL))
         }
 
         setupUI()
-        setupActionBar()
         setupClickListeners()
     }
 
@@ -112,26 +116,13 @@ class SignInActivity : BaseActivity() {
     /**
      * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
      */
-    fun userLoggedInSuccess(user: User) {
+    fun userLoggedInSuccess() {
 
         // Hide the progress dialog.
         hideProgressDialog()
 
-        if (!user.profileCompleted) {
-            // todo
-            // If the user profile is incomplete then launch the UserProfileActivity.
-
-            /*val intent = Intent(this@SignInActivity, UserProfileActivity::class.java)
-            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
-            startActivity(intent)*/
-
-            goToMainActivity(this@SignInActivity, true)
-            finish()
-        } else {
-            // Redirect the user to Dashboard Screen after log in.
-            goToMainActivity(this@SignInActivity)
-            finish()
-        }
+        // Redirect the user to Dashboard Screen after log in.
+        goToMainActivity(this@SignInActivity)
         finish()
     }
 
@@ -158,20 +149,6 @@ class SignInActivity : BaseActivity() {
 
                 else -> true
             }
-        }
-    }
-
-    private fun setupActionBar() {
-        binding.toolbar.apply {
-            setSupportActionBar(root)
-            textViewActionBarLabel.text = getString(R.string.txt_login)
-        }
-
-        val actionBar = supportActionBar
-        actionBar?.let {
-            it.setDisplayShowCustomEnabled(true)
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp)
         }
     }
 

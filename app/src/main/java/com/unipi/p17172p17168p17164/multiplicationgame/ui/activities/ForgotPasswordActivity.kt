@@ -7,7 +7,9 @@ import android.text.TextWatcher
 import android.view.animation.AnimationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.unipi.p17172.emarket.utils.SnackBarErrorClass
-import com.unipi.p17172.emarket.utils.SnackBarSuccessClass
+import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityForgotPasswordBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.SnackBarSuccessClass
 import java.util.*
 
 class ForgotPasswordActivity : BaseActivity() {
@@ -24,7 +26,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
     private fun init() {
         setupUI()
-        setUpActionBar()
         setUpClickListeners()
     }
 
@@ -64,7 +65,7 @@ class ForgotPasswordActivity : BaseActivity() {
 
                         if (task.isSuccessful) {
                             SnackBarSuccessClass
-                                .make(root, getString(R.string.txt_password_reset_mail_sent))
+                                .make(root, getString(R.string.txt_completed), getString(R.string.txt_password_reset_mail_sent))
                                 .show()
 
                             finish()
@@ -76,7 +77,8 @@ class ForgotPasswordActivity : BaseActivity() {
                     }
             }
             else
-                btnSend.startAnimation(AnimationUtils.loadAnimation(this@ForgotPasswordActivity, R.anim.shake))
+                btnSend.startAnimation(AnimationUtils.loadAnimation(this@ForgotPasswordActivity,
+                    R.anim.shake))
         }
     }
 
@@ -94,20 +96,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
                 else -> true
             }
-        }
-    }
-
-    private fun setUpActionBar() {
-        binding.toolbar.apply {
-            setSupportActionBar(root)
-            textViewActionBarLabel.text = getString(R.string.txt_forgot_password)
-        }
-
-        val actionBar = supportActionBar
-        actionBar?.let {
-            it.setDisplayShowCustomEnabled(true)
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp)
         }
     }
 }

@@ -18,7 +18,7 @@
         <!-- Splash Screen Activity -->
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
+            android:theme="@style/Theme.MultiplicationGame.FullScreen"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -30,28 +30,21 @@
         <!-- Home/Main Activity -->
         <activity
             android:name=".ui.activities.MainMenuActivity"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar3">
-        </activity>
+            android:theme="@style/Theme.MultiplicationGame.NoActionBar" />
 
         <!-- Sign In activity -->
         <activity
             android:name=".ui.activities.SignInActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar4"
-            android:parentActivityName=".ui.activities.MainMenuActivity">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.MainMenuActivity" />
-        </activity>
+            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
 
         <!-- Sign Up activity -->
         <activity
             android:name=".ui.activities.SignUpActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar4"
+            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
             android:parentActivityName=".ui.activities.SignInActivity">
 
             <meta-data
@@ -64,12 +57,36 @@
             android:name=".ui.activities.ForgotPasswordActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar4"
+            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
             android:parentActivityName=".ui.activities.SignInActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.SignInActivity" />
+        </activity>
+
+        <!-- Tables Test activity -->
+        <activity
+            android:name=".ui.activities.TablesTestActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.activities.MainMenuActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.MainMenuActivity" />
+        </activity>
+
+        <!-- Profile Details activity -->
+        <activity
+            android:name=".ui.activities.ProfileDetailsActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.activities.MainMenuActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.MainMenuActivity" />
         </activity>
         <!-- endregion [END Activities] -->
         

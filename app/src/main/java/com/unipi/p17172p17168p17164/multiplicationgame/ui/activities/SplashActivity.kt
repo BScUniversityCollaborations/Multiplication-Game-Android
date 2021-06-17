@@ -1,6 +1,5 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
@@ -47,7 +46,7 @@ class SplashActivity : BaseActivity() {
 
         // Execute a task in the background thread after some seconds.
         backgroundExecutor.schedule({
-            startActivity(Intent(this@SplashActivity, MainMenuActivity::class.java))
+            goToSignInActivity(this@SplashActivity)
             finish() // Closing the current activity so the user can't go back to it with the back button and also there is no reason to keep it open.
         }, Constants.SPLASH_SCREEN_DELAY, TimeUnit.MILLISECONDS)
     }

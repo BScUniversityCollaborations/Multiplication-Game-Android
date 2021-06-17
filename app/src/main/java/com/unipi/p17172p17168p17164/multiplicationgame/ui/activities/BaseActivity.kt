@@ -63,14 +63,6 @@ open class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun goToMainActivity(context: Context, showProfileNotCompletedSnackBar: Boolean) {
-        val intent = Intent(context, MainMenuActivity::class.java)
-        intent.putExtra(Constants.EXTRA_PROFILE_NOT_COMPLETED_SNACKBAR, showProfileNotCompletedSnackBar)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-    }
-
     fun goToSignInActivity(context: Context) {
         startActivity(Intent(context, SignInActivity::class.java))
     }

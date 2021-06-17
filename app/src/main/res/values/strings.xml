@@ -23,6 +23,10 @@
     <string name="txt_sign_up">Sign Up</string>
     <string name="txt_update_profile">Update Profile</string>
     <string name="txt_welcome">Welcome</string>
+    <string name="txt_congratulations">Congratulations!</string>
+    <string name="txt_sign_up_successful">Your account has been
+        verified successfully! You can now
+        proceed to sign in.</string>
 
     <!-- Snackbar -->
     <string name="txt_error_registration_failed">An error has occurred with registration, please contact our support team.</string>
@@ -45,5 +49,6 @@
     <string name="input_txt_hint_email">Your email address</string>
     <string name="input_txt_hint_password">Your password</string>
     <string name="input_txt_hint_name">Your name</string>
+    <string name="txt_completed">Completed!</string>
 
 </resources>

@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.MultiplicationGame" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.MultiplicationGame" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorWhiteLight</item>
@@ -12,39 +12,18 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorStatusBar</item>
         <item name="android:navigationBarColor">@color/colorNavigationBar</item>
+        <item name="android:windowLightStatusBar">false</item>
 
         <item name="colorError">@color/colorSnackBarErrorBg</item>
         <item name="snackbarStyle">@style/Widget.MyApp.Snackbar</item>
+
     </style>
 
     <style name="Theme.MultiplicationGame.NoActionBar">
-        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorStatusBar</item>
     </style>
 
-    <style name="Theme.MultiplicationGame.NoActionBar2">
+    <style name="Theme.MultiplicationGame.FullScreen" parent="Theme.MultiplicationGame.NoActionBar">
         <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorBg1</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@color/colorNavigationBar</item>
-    </style>
-
-    <style name="Theme.MultiplicationGame.NoActionBar3">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorStatusBar</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/colorTextLightPurple</item>
-    </style>
-
-    <style name="Theme.MultiplicationGame.NoActionBar4">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorStatusBar</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/colorNavigationBar</item>
     </style>
 </resources>

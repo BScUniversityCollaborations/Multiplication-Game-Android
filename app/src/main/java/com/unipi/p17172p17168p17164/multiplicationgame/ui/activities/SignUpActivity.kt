@@ -7,6 +7,12 @@ import android.text.TextWatcher
 import android.view.animation.AnimationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.unipi.p17172.emarket.utils.SnackBarErrorClass
+import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivitySignUpBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.models.User
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 
 
 class SignUpActivity : BaseActivity() {
@@ -23,7 +29,6 @@ class SignUpActivity : BaseActivity() {
 
     private fun init() {
         setupUI()
-        setupActionBar()
         setupClickListeners()
     }
 
@@ -183,19 +188,5 @@ class SignUpActivity : BaseActivity() {
 
         // Finish the Register Screen
         finish()
-    }
-
-    private fun setupActionBar() {
-        binding.toolbar.apply {
-            setSupportActionBar(root)
-            textViewActionBarLabel.text = getString(R.string.txt_register)
-        }
-
-        val actionBar = supportActionBar
-        actionBar?.let {
-            it.setDisplayShowCustomEnabled(true)
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp)
-        }
     }
 }
