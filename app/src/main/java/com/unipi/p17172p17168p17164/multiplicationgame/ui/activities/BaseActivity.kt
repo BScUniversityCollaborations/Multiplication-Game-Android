@@ -10,7 +10,6 @@ import android.media.MediaPlayer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.R
-import com.unipi.p17172p17168p17164.multiplicationgame.services.BackgroundMusicService
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -21,6 +20,7 @@ import java.util.concurrent.TimeUnit
  * It inherits the AppCompatActivity class so in other activity class we will replace the AppCompatActivity with BaseActivity.
  */
 open class BaseActivity : AppCompatActivity() {
+    private lateinit var player: MediaPlayer
 
     // Create an executor that executes tasks in a background thread.
     private val backgroundExecutor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
@@ -103,16 +103,27 @@ open class BaseActivity : AppCompatActivity() {
         }, 2000, TimeUnit.MILLISECONDS)
     }
 
-    fun getButtonPressSound(activity: Activity) {
+    fun playButtonPressSound(activity: Activity) {
         val player: MediaPlayer = MediaPlayer.create(activity, R.raw.button_press_click)
         player.isLooping = false
-        player.setVolume(Constants.VOLUME_LEFT, Constants.VOLUME_RIGHT)
+        player.setVolume(Constants.VOLUME_MEDIUM, Constants.VOLUME_MEDIUM)
         player.start()
         player.setOnCompletionListener { player.release() }
     }
 
-    fun disableBackgroundMusic() {
-        val intent = Intent(this, BackgroundMusicService::class.java)
-        stopService(intent)
+    fun playNegativeSound(activity: Activity) {
+        val player: MediaPlayer = MediaPlayer.create(activity, R.raw.alert_negative_error)
+        player.isLooping = false
+        player.setVolume(Constants.VOLUME_MAX, Constants.VOLUME_MAX)
+        player.start()
+        player.setOnCompletionListener { player.release() }
+    }
+
+    fun playPositiveSound(activity: Activity) {
+        val player: MediaPlayer = MediaPlayer.create(activity, R.raw.alert_success)
+        player.isLooping = false
+        player.setVolume(Constants.VOLUME_MEDIUM, Constants.VOLUME_MEDIUM)
+        player.start()
+        player.setOnCompletionListener { player.release() }
     }
 }

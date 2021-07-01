@@ -1,6 +1,5 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +7,12 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.content.res.AppCompatResources
 import com.unipi.p17172.emarket.utils.SnackBarErrorClass
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTableResultBinding
-import com.unipi.p17172p17168p17164.multiplicationgame.services.BackgroundMusicService
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.CustomDialog
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Utils
@@ -41,9 +40,9 @@ class TableResultActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTableResultBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         init()
+        setContentView(binding.root)
     }
 
     private fun init() {
@@ -144,52 +143,6 @@ class TableResultActivity : BaseActivity() {
         timer.start()
     }
 
-    private fun resumeTimer() {
-
-        timerState = TimerState.Running
-        val millisInFuture = timeRemaining
-
-        // Initialize a new CountDownTimer instance
-        timer = object : CountDownTimer(millisInFuture, countDownInterval) {
-            override fun onTick(millisUntilFinished: Long) {
-                // do something in every tick
-                if (timerState == TimerState.Paused
-                    || timerState == TimerState.Stopped) {
-                    //If the user request to cancel or paused the
-                    //CountDownTimer we will cancel the current instance
-                    cancel()
-                }
-                else {
-                    //Display the remaining seconds to app interface
-                    //1 second = 1000 milliseconds
-                    binding.apply {
-                        val minutes = millisUntilFinished / 1000 / 60
-                        val seconds = millisUntilFinished / 1000 % 60
-                        progressBarTimer.progress = (progressBarTimer.max + millisUntilFinished / 1000).toInt()
-                        txtViewTimerValue.text =
-                            String.format(
-                                getString(R.string.txt_timer_format),
-                                minutes,
-                                seconds
-                            )
-                    }
-                    //Put count down timer remaining time in a variable
-                    timeRemaining = millisUntilFinished
-                }
-            }
-
-            override fun onFinish() {
-                //Do something when count down finished
-                binding.apply {
-                    progressBarTimer.progress = 0
-                }
-                // todo show time ran out dialog
-            }
-
-        }
-        timer.start()
-    }
-
     fun goToNextEquation(skip: Boolean) {
         numSecond++
 
@@ -229,12 +182,13 @@ class TableResultActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        resumeTimer()
+        startTimer()
     }
 
     override fun onPause() {
         super.onPause()
 
+        timerState = TimerState.Paused
         pauseTimer()
     }
 
@@ -254,6 +208,9 @@ class TableResultActivity : BaseActivity() {
                         .show()
                     txtInputLayout.requestFocus()
                     txtInputLayout.error = getString(R.string.txt_error_empty_answer)
+                    playNegativeSound(this@TableResultActivity)
+                    btnNext.startAnimation(AnimationUtils.loadAnimation(
+                        this@TableResultActivity, R.anim.anim_shake))
                     false
                 }
                 else -> true
@@ -264,6 +221,7 @@ class TableResultActivity : BaseActivity() {
     private fun setupUI() {
         setupActionBar()
         setupClickListeners()
+
         binding.apply {
             txtInput.setOnFocusChangeListener { v, hasFocus ->
                 if (!hasFocus)
@@ -277,30 +235,30 @@ class TableResultActivity : BaseActivity() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun afterTextChanged(s: Editable?) {}
             })
-            val progressAnimator = ObjectAnimator.ofInt(progressBarTimer, "progress", 0,1);
-            progressAnimator.duration = 7000;
-            progressAnimator.start();
         }
+
+        // start/exit activity transitions
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left)
     }
 
     private fun setupClickListeners() {
         binding.apply {
             btnNext.setOnClickListener {
-                getButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TableResultActivity)
                 if (validateFields()) {
                     goToNextEquation(false)
                 }
             }
             btnSkip.setOnClickListener {
-                getButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TableResultActivity)
                 CustomDialog().showSkipConfirmation(this@TableResultActivity)
             }
             btnClear.setOnClickListener {
-                getButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TableResultActivity)
                 txtInput.setText("")
             }
             imgViewArrowLeft.setOnClickListener{
-                getButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TableResultActivity)
                 // Focus the text input box
                 txtInputLayout.requestFocus()
                 // Hide soft keyboard
@@ -331,10 +289,17 @@ class TableResultActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun onSupportNavigateUp(): Boolean {
+        exitDialog()
+        return true
+    }
 
-        getButtonPressSound(this@TableResultActivity)
+    override fun onBackPressed() {
+        exitDialog()
+    }
+
+    private fun exitDialog() {
+        playButtonPressSound(this@TableResultActivity)
         CustomDialog().showExitConfirmation(this@TableResultActivity)
     }
 }

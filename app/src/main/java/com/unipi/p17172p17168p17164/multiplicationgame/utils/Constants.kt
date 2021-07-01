@@ -1,10 +1,7 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.utils
 
-import android.media.MediaPlayer
 import com.google.android.material.behavior.SwipeDismissBehavior
 import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.unipi.p17172p17168p17164.multiplicationgame.R
-import kotlin.coroutines.coroutineContext
 
 // Create a custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
 /**
@@ -16,9 +13,12 @@ object Constants {
     const val SHARED_PREFERENCES_PREFIX: String = "MultiplicationGamePrefs"
     const val LOGGED_IN_EMAIL: String = "logged_in_email"
     const val SPLASH_SCREEN_DELAY: Long = 1500
-    const val VOLUME_LEFT: Float = 75f
-    const val VOLUME_RIGHT: Float = 75f
+    const val VOLUME_MEDIUM: Float = 75f
+    const val VOLUME_MAX: Float = 100f
     const val DEFAULT_TEST_TIMER_DELAY: Long = 60000
+    const val ACTION_PLAY: String = "ACTION"
+    const val ACTION_PAUSE: String = "PAUSE"
+    const val ACTION_RESUME: String = "RESUME"
     val SNACKBAR_BEHAVIOR = BaseTransientBottomBar.Behavior().apply {
         setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY) }
 

@@ -51,12 +51,14 @@
                 android:fontFamily="@font/core_sans_cr_45_regular"
                 android:justificationMode="inter_word"
                 android:text="desc"
+                android:textAlignment="viewStart"
                 android:textColor="@color/colorTextLightPurple"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout_Chevron"
                 app:layout_constraintStart_toStartOf="@+id/txtView_Header"
-                app:layout_constraintTop_toBottomOf="@+id/txtView_Header" />
+                app:layout_constraintTop_toBottomOf="@+id/txtView_Header"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/txtView_Number_Icon"
@@ -64,8 +66,8 @@
                 android:layout_width="@dimen/img_btn_width_large_70"
                 android:layout_height="@dimen/img_btn_width_large_70"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginBottom="23dp"
                 android:gravity="center"
                 android:background="@drawable/ic_circle_low_opacity"
                 android:text="1"

@@ -97,6 +97,7 @@ class SignInActivity : BaseActivity() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
 
+                        FirebaseAuth.getInstance()
                         if (task.isSuccessful) {
                             FirestoreHelper().getUserDetails(this@SignInActivity)
                         } else {

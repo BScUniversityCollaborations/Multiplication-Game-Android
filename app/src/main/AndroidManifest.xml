@@ -99,7 +99,5 @@
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
         <!-- endregion [END Activities] -->
-
-        <service android:name=".services.BackgroundMusicService" />
     </application>
 </manifest>
