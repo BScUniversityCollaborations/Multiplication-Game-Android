@@ -4,11 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ItemTableBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
-import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesTestActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TableResultActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesListActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
+
 
 /**
  * A adapter class for tables list items.
@@ -42,12 +47,17 @@ open class TablesListAdapter(
             txtViewNumberIcon.text = model.number.toString()
         }
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, TablesTestActivity::class.java)
-            intent.putExtra(Constants.EXTRA_TABLE_ID, model.tableId)
-            intent.putExtra(Constants.EXTRA_NUMBER, model.number)
+            val intent = Intent(context, TableResultActivity::class.java)
+            intent.putExtra(Constants.EXTRA_NUMBER_FIRST, model.number)
+            intent.putExtra(Constants.EXTRA_NUMBER_SECOND, model.number)
             intent.putExtra(Constants.EXTRA_LIMIT, model.limit)
             context.startActivity(intent)
         }
+
+        // Slide from right animation
+        val animation: Animation =
+            AnimationUtils.loadAnimation(context, R.anim.anim_from_right)
+        holder.itemView.startAnimation(animation)
     }
 
     /**

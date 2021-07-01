@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bg"
-    tools:context=".ui.activities.TablesTestActivity"
+    tools:context=".ui.activities.TablesListActivity"
     tools:ignore="ContentDescription">
 
     <include
@@ -37,7 +37,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     tools:listitem="@layout/item_table"
-                    android:layoutAnimation="@anim/layout_anim"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

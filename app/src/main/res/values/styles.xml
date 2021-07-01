@@ -5,6 +5,11 @@
         <item name="boxStrokeWidth">1dp</item>
     </style>
 
+    <style name="TextInputLayoutStyle.NoStroke" parent="TextInputLayoutStyle" >
+        <item name="boxStrokeColor">@color/text_input_box_stroke_equation</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
     <!-- TextViews -->
     <style name="TextView_Regular">
         <item name="android:fontFamily">@font/core_sans_cr_45_regular</item>
@@ -24,6 +29,7 @@
 
     <!-- Buttons -->
     <style name="Button_Big" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:soundEffectsEnabled">false</item>
         <item name="android:fontFamily">@font/core_sans_cr_55_medium</item>
         <item name="iconSize">@dimen/btn_font_size_small_14</item>
         <item name="iconGravity">textStart</item>
@@ -38,6 +44,7 @@
     </style>
 
     <style name="Button_Normal" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:soundEffectsEnabled">false</item>
         <item name="android:fontFamily">@font/core_sans_cr_55_medium</item>
         <item name="iconSize">@dimen/btn_font_size_small_14</item>
         <item name="iconGravity">textStart</item>
@@ -53,6 +60,7 @@
     </style>
 
     <style name="Button_Borderless" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:soundEffectsEnabled">false</item>
         <item name="android:fontFamily">@font/core_sans_cr_55_medium</item>
         <item name="android:padding">0dp</item>
         <item name="android:gravity">start</item>
@@ -84,6 +92,17 @@
         <item name="android:layout_margin">0dp</item>
         <!-- Custom padding -->
         <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="TextEditInputStyle.ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/core_sans_cr_55_medium</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

@@ -6,15 +6,15 @@
     android:layout_marginEnd="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:ignore="ContentDescription">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_SingleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:cardBackgroundColor="@color/colorTransparent"
         app:cardElevation="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
         android:layout_marginTop="29dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_container_all_corners">
+            android:background="@drawable/ripple_recycler_container">
 
             <TextView
                 android:id="@+id/txtView_Header"

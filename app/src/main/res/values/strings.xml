@@ -27,12 +27,15 @@
     <string name="txt_sign_up_successful">Your account has been
         verified successfully! You can now
         proceed to sign in.</string>
+    <string name="txt_table_format">Table of %1$s (%2$s)</string>
+    <string name="txt_timer_format">%1$s:%2$s</string>
 
     <!-- Snackbar -->
     <string name="txt_error_registration_failed">An error has occurred with registration, please contact our support team.</string>
     <string name="txt_error_empty_name">Please enter your full name.</string>
     <string name="txt_error_empty_password">Please enter your password.</string>
     <string name="txt_error_empty_email">Please enter your email.</string>
+    <string name="txt_error_empty_answer">The answer cannot be empty :(</string>
 
     <!-- Buttons -->
     <string name="txt_tables">Tables</string>
@@ -50,5 +53,17 @@
     <string name="input_txt_hint_password">Your password</string>
     <string name="input_txt_hint_name">Your name</string>
     <string name="txt_completed">Completed!</string>
+    <string name="txt_solve_the_multiplication">Solve the multiplication</string>
+    <string name="txt_time_left">Time Left:</string>
+    <string name="txt_next">Next</string>
+    <string name="txt_skip">Skip</string>
+    <string name="txt_clear">Clear</string>
+    <string name="txt_exit_confirmation">Exit Confirmation</string>
+    <string name="txt_exit_confirmation_2">Are you sure you want to exit the test? This will count as a skip.</string>
+    <string name="txt_yes">Yes</string>
+    <string name="txt_skip_confirmation">Skip Confirmation</string>
+    <string name="txt_skip_confirmation_2">Are you sure you want to skip this multiplication? This will count as a skip.</string>
+    <string name="txt_time_out_2">Your time has an out. You may have to improve your solve speed. You will be redirected to next multiplication in 10 seconds.</string>
+    <string name="txt_time_out">Time Out!</string>
 
 </resources>

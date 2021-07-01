@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivitySplashBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import java.util.concurrent.Executors
@@ -37,6 +38,10 @@ class SplashActivity : BaseActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
         }
     }
 
@@ -46,7 +51,12 @@ class SplashActivity : BaseActivity() {
 
         // Execute a task in the background thread after some seconds.
         backgroundExecutor.schedule({
-            goToSignInActivity(this@SplashActivity)
+            if (FirestoreHelper().getCurrentUserID() == "")
+                goToSignInActivity(this@SplashActivity)
+            else {
+                goToMainActivity(this@SplashActivity)
+                finish()
+            }
         }, Constants.SPLASH_SCREEN_DELAY, TimeUnit.MILLISECONDS)
     }
 }

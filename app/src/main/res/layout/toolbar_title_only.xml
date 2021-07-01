@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorStatusBar"
+    android:elevation="2dp"
     tools:ignore="ContentDescription, HardcodedText">
 
         <androidx.constraintlayout.widget.ConstraintLayout

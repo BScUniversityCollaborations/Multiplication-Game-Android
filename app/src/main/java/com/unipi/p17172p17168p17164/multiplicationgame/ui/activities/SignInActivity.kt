@@ -36,7 +36,7 @@ class SignInActivity : BaseActivity() {
                         getString(R.string.txt_sign_up_successful))
                     .show()
             }
-            binding.inputTxtEmail.setText(intent.getStringExtra(Constants.EXTRA_USER_EMAIL))
+            binding.inputTxtEmail.setText(intent.getStringExtra(Constants.EXTRA_USER_EMAIL).toString())
         }
 
         setupUI()
@@ -110,7 +110,7 @@ class SignInActivity : BaseActivity() {
             }
         }
         else
-            binding.btnSignIn.startAnimation(AnimationUtils.loadAnimation(this@SignInActivity, R.anim.shake))
+            binding.btnSignIn.startAnimation(AnimationUtils.loadAnimation(this@SignInActivity, R.anim.anim_shake))
     }
 
     /**
@@ -153,6 +153,6 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        goToMainActivity(this@SignInActivity)
+        doubleBackToExit()
     }
 }

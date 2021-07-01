@@ -18,8 +18,9 @@
         <!-- Splash Screen Activity -->
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.MultiplicationGame.Splash"
+            android:screenOrientation="fullSensor">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,13 +31,14 @@
         <!-- Home/Main Activity -->
         <activity
             android:name=".ui.activities.MainMenuActivity"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.MultiplicationGame.Main" />
 
         <!-- Sign In activity -->
         <activity
             android:name=".ui.activities.SignInActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
+            android:theme="@style/Theme.MultiplicationGame"
             android:windowSoftInputMode="adjustResize"/>
 
         <!-- Sign Up activity -->
@@ -44,7 +46,7 @@
             android:name=".ui.activities.SignUpActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
+            android:theme="@style/Theme.MultiplicationGame"
             android:parentActivityName=".ui.activities.SignInActivity">
 
             <meta-data
@@ -57,7 +59,7 @@
             android:name=".ui.activities.ForgotPasswordActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.MultiplicationGame.NoActionBar"
+            android:theme="@style/Theme.MultiplicationGame"
             android:parentActivityName=".ui.activities.SignInActivity">
 
             <meta-data
@@ -67,15 +69,23 @@
 
         <!-- Tables Test activity -->
         <activity
-            android:name=".ui.activities.TablesTestActivity"
+            android:name=".ui.activities.TablesListActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MultiplicationGame"
             android:parentActivityName=".ui.activities.MainMenuActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
+
+        <!-- Table Test Equation activity -->
+        <activity
+            android:name=".ui.activities.TableResultActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MultiplicationGame" />
 
         <!-- Profile Details activity -->
         <activity
@@ -89,6 +99,7 @@
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
         <!-- endregion [END Activities] -->
-        
+
+        <service android:name=".services.BackgroundMusicService" />
     </application>
 </manifest>

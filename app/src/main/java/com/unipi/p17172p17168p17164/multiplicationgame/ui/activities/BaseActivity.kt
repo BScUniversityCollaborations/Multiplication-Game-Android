@@ -1,13 +1,16 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.services.BackgroundMusicService
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -58,14 +61,13 @@ open class BaseActivity : AppCompatActivity() {
 
     fun goToMainActivity(context: Context) {
         val intent = Intent(context, MainMenuActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        finish()
         startActivity(intent)
     }
 
     fun goToSignInActivity(context: Context) {
-        startActivity(Intent(context, SignInActivity::class.java))
         finish()
+        startActivity(Intent(context, SignInActivity::class.java))
     }
 
     fun goToSignInActivity(context: Context, showRegisteredSnackBar: Boolean, userEmail: String) {
@@ -101,4 +103,16 @@ open class BaseActivity : AppCompatActivity() {
         }, 2000, TimeUnit.MILLISECONDS)
     }
 
+    fun getButtonPressSound(activity: Activity) {
+        val player: MediaPlayer = MediaPlayer.create(activity, R.raw.button_press_click)
+        player.isLooping = false
+        player.setVolume(Constants.VOLUME_LEFT, Constants.VOLUME_RIGHT)
+        player.start()
+        player.setOnCompletionListener { player.release() }
+    }
+
+    fun disableBackgroundMusic() {
+        val intent = Intent(this, BackgroundMusicService::class.java)
+        stopService(intent)
+    }
 }

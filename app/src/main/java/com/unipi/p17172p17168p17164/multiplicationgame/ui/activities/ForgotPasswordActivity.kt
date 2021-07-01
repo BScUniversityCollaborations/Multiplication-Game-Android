@@ -78,7 +78,7 @@ class ForgotPasswordActivity : BaseActivity() {
             }
             else
                 btnSend.startAnimation(AnimationUtils.loadAnimation(this@ForgotPasswordActivity,
-                    R.anim.shake))
+                    R.anim.anim_shake))
         }
     }
 

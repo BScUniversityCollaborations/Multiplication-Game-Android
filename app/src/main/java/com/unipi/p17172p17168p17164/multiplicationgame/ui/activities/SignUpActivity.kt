@@ -165,7 +165,7 @@ class SignUpActivity : BaseActivity() {
             }
         }
         else
-            binding.btnSignUp.startAnimation(AnimationUtils.loadAnimation(this@SignUpActivity, R.anim.shake))
+            binding.btnSignUp.startAnimation(AnimationUtils.loadAnimation(this@SignUpActivity, R.anim.anim_shake))
     }
 
     /**

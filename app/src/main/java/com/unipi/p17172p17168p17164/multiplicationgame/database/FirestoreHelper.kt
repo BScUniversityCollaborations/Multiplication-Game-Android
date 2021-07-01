@@ -12,7 +12,7 @@ import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
 import com.unipi.p17172p17168p17164.multiplicationgame.models.User
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.SignInActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.SignUpActivity
-import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesTestActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesListActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 
 class FirestoreHelper {
@@ -143,7 +143,7 @@ class FirestoreHelper {
                     tablesList.add(table)
                 }
                 when (activity) {
-                    is TablesTestActivity -> {
+                    is TablesListActivity -> {
                         activity.successTablesList(tablesList)
                     }
                     else -> {}
