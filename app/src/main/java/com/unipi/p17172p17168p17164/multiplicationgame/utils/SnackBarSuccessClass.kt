@@ -3,7 +3,9 @@ package com.unipi.p17172p17168p17164.multiplicationgame.utils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.SnackbarSuccessBinding
@@ -14,15 +16,11 @@ class SnackBarSuccessClass(
     content: SnackBarSuccessView
 ) : BaseTransientBottomBar<SnackBarSuccessClass>(parent, content, content) {
 
-    private val binding: SnackbarSuccessBinding = SnackbarSuccessBinding.inflate(
-        LayoutInflater.from(view.context)
-    )
-
     init {
         getView().setBackgroundColor(ContextCompat.getColor(view.context, android.R.color.transparent))
         getView().setPadding(0, 0, 0, 0)
 
-        binding.btnDismiss.setOnClickListener { dismiss() }
+        getView().findViewById<TextView>(R.id.btn_Dismiss).setOnClickListener { dismiss() }
         animationMode = ANIMATION_MODE_SLIDE
     }
 
@@ -46,9 +44,11 @@ class SnackBarSuccessClass(
                 LayoutInflater.from(view.context)
             )
 
-            binding.apply {
-                textViewHeader.text = title
-                textViewHeader2.text = body
+            customView.apply {
+                binding.run {
+                    findViewById<TextView>(R.id.textView_Header).text = title
+                    findViewById<TextView>(R.id.textView_Header_2).text = body
+                }
             }
 
             // We create and return our Snack-bar
@@ -57,7 +57,5 @@ class SnackBarSuccessClass(
                 customView
             )
         }
-
     }
-
 }

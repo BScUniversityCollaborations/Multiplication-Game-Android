@@ -54,8 +54,7 @@ class SplashActivity : BaseActivity() {
             if (FirestoreHelper().getCurrentUserID() == "")
                 goToSignInActivity(this@SplashActivity)
             else {
-                goToMainActivity(this@SplashActivity)
-                finish()
+                goToMainActivityNoAnimation(this@SplashActivity)
             }
         }, Constants.SPLASH_SCREEN_DELAY, TimeUnit.MILLISECONDS)
     }

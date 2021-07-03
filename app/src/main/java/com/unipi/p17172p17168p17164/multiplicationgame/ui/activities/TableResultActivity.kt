@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.content.res.AppCompatResources
@@ -34,7 +35,7 @@ class TableResultActivity : BaseActivity() {
     private var timeRemaining: Long = 0
 
     enum class TimerState {
-        Stopped, Paused, Running
+        Stopped, Paused, Running, Finished
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,6 +137,7 @@ class TableResultActivity : BaseActivity() {
             override fun onFinish() {
                 //Do something when count down finished
                 binding.progressBarTimer.progress = 0
+                timerState = TimerState.Finished
                 CustomDialog().showTimeOut(this@TableResultActivity)
             }
 
@@ -153,6 +155,9 @@ class TableResultActivity : BaseActivity() {
 
         if (skip) {
             // todo count as mistake/skip
+        }
+        else if (timerState == TimerState.Finished) {
+
         }
         else {
             binding.apply {
@@ -289,9 +294,14 @@ class TableResultActivity : BaseActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        exitDialog()
-        return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                playButtonPressSound(this)
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

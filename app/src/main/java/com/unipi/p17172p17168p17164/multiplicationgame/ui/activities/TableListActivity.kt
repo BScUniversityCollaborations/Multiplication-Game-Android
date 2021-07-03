@@ -1,12 +1,13 @@
 package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.adapters.TablesListAdapter
 import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTablesListBinding
-import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
+import com.unipi.p17172p17168p17164.multiplicationgame.models.MultiplicationTable
 
 class TablesListActivity : BaseActivity() {
     // ~~~~~~~~ VARIABLES ~~~~~~~~
@@ -30,7 +31,7 @@ class TablesListActivity : BaseActivity() {
      *
      * @param tablesList Will receive the tables list from cloud firestore.
      */
-    fun successTablesList(tablesList: ArrayList<Table>) {
+    fun successTablesList(tablesList: ArrayList<MultiplicationTable>) {
 
         if (tablesList.size > 0) {
 
@@ -59,6 +60,16 @@ class TablesListActivity : BaseActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                playButtonPressSound(this)
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

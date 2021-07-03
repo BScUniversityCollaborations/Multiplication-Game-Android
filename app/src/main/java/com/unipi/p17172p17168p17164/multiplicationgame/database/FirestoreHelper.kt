@@ -8,11 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import com.unipi.p17172p17168p17164.multiplicationgame.models.Table
+import com.unipi.p17172p17168p17164.multiplicationgame.models.MultiplicationTable
 import com.unipi.p17172p17168p17164.multiplicationgame.models.User
-import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.SignInActivity
-import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.SignUpActivity
-import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TablesListActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.models.UserLog
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.*
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 
 class FirestoreHelper {
@@ -53,24 +52,28 @@ class FirestoreHelper {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!
 
-                val sharedPreferences =
-                    activity.getSharedPreferences(
-                        Constants.SHARED_PREFERENCES_PREFIX,
-                        Context.MODE_PRIVATE
-                    )
-
-                // Create an instance of the editor which is help us to edit the SharedPreference.
-                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString(
-                    Constants.LOGGED_IN_EMAIL,
-                    user.email
-                )
-                editor.apply()
-
                 when (activity) {
+                    // When activity is the sign in one
                     is SignInActivity -> {
+                        val sharedPreferences =
+                            activity.getSharedPreferences(
+                                Constants.SHARED_PREFERENCES_PREFIX,
+                                Context.MODE_PRIVATE
+                            )
+
+                        // Create an instance of the editor which is help us to edit the SharedPreference.
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString(
+                            Constants.LOGGED_IN_EMAIL,
+                            user.email
+                        )
+                        editor.apply()
                         // Call a function of base activity for transferring the result to it.
                         activity.userLoggedInSuccess()
+                    }
+                    // When activity is the profile details one
+                    is ProfileDetailsActivity -> {
+                        activity.successProfileDetailsFromFirestore(user)
                     }
                 }
             }
@@ -78,6 +81,9 @@ class FirestoreHelper {
                 // Hide the progress dialog if there is any error. And print the error in log.
                 when (activity) {
                     is SignInActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is ProfileDetailsActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -132,12 +138,12 @@ class FirestoreHelper {
                 Log.d("Tables List", document.documents.toString())
 
                 // Here we have created a new instance for Products ArrayList.
-                val tablesList: ArrayList<Table> = ArrayList()
+                val tablesList: ArrayList<MultiplicationTable> = ArrayList()
 
                 // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
-                    val table = i.toObject(Table::class.java)
+                    val table = i.toObject(MultiplicationTable::class.java)
                     table!!.tableId = i.id
 
                     tablesList.add(table)
@@ -151,6 +157,68 @@ class FirestoreHelper {
             }
             .addOnFailureListener { e ->
                 Log.e("Get Tables List", "Error while getting tables list.", e)
+            }
+    }
+
+    fun addLogEntry(activity: Activity, userLog: UserLog) {
+
+        // Collection name address.
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .document()
+            // Here the userLog are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(userLog, SetOptions.merge())
+            .addOnSuccessListener {
+
+                when (activity) {
+                    is TableResultActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is TableResultActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding the log entry.",
+                    e
+                )
+            }
+    }
+
+    fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>) {
+        // Collection Name
+        dbFirestore.collection(Constants.COLLECTION_USERS)
+            // Document ID against which the data to be updated. Here the document id is the current logged in user id.
+            .document(getCurrentUserID())
+            // A HashMap of fields which are to be updated.
+            .update(userHashMap)
+            .addOnSuccessListener {
+
+                // Notify the success result.
+                when (activity) {
+                    is EditProfileDetailsActivity -> {
+                        // Call a function of base activity for transferring the result to it.
+                        activity.userProfileUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is EditProfileDetailsActivity -> {
+                        // Hide the progress dialog if there is any error. And print the error in log.
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating the user details.",
+                    e
+                )
             }
     }
 

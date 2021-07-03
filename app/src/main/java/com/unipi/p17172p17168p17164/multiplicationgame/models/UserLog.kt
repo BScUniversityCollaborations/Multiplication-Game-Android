@@ -13,7 +13,7 @@ import java.util.*
 @Keep
 @Parcelize
 @IgnoreExtraProperties
-data class Log(
+data class UserLog(
     val userId: String = "",
     val fullName: String = "",
     val email: String = "",

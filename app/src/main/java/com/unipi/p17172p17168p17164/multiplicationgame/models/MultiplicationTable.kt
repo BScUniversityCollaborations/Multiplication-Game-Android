@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 @IgnoreExtraProperties
-data class Table(
+data class MultiplicationTable(
     var tableId: String = "",
     val name: String = "",
     val desc: String = "",

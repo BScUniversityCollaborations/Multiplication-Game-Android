@@ -2,12 +2,15 @@ package com.unipi.p17172p17168p17164.multiplicationgame.utils
 
 import com.google.android.material.behavior.SwipeDismissBehavior
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 // Create a custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
 /**
  * A custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
  */
 object Constants {
+
     // General Constants
     const val TAG: String = "[MultiplicationGame]"
     const val SHARED_PREFERENCES_PREFIX: String = "MultiplicationGamePrefs"
@@ -19,6 +22,7 @@ object Constants {
     const val ACTION_PLAY: String = "ACTION"
     const val ACTION_PAUSE: String = "PAUSE"
     const val ACTION_RESUME: String = "RESUME"
+    val DATE_FORMAT: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
     val SNACKBAR_BEHAVIOR = BaseTransientBottomBar.Behavior().apply {
         setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY) }
 
@@ -26,7 +30,7 @@ object Constants {
     // This is used for the collection name for USERS.
     const val COLLECTION_USERS: String = "users"
     const val COLLECTION_TABLES: String = "tables"
-    const val COLLECTION_LOGS: String = "logs"
+    const val COLLECTION_USER_LOGS: String = "users_logs"
     const val COLLECTION_WARNINGS: String = "warnings"
 
     // Fields
@@ -43,10 +47,13 @@ object Constants {
     const val FIELD_USER_ID: String = "userId"
 
     // Intent Extras
+    const val EXTRA_USER_ID: String = "extraUserId"
     const val EXTRA_USER_EMAIL: String = "extraUserEmail"
+    const val EXTRA_USER_DETAILS: String = "extraUserDetails"
     const val EXTRA_NUMBER_FIRST: String = "extraNumberFirst"
     const val EXTRA_NUMBER_SECOND: String = "extraNumberSecond"
     const val EXTRA_LIMIT: String = "extraLimit"
     const val EXTRA_REG_USERS_SNACKBAR: String = "extraShowRegisteredUserSnackbar"
+    const val EXTRA_SUCCESS_SNACKBAR: String = "extraShowSuccessSnackbar"
 }
 // END

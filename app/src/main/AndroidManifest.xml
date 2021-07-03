@@ -105,6 +105,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
+
+        <!-- Edit Profile activity -->
+        <activity
+            android:name=".ui.activities.EditProfileDetailsActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.activities.ProfileDetailsActivity" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.ProfileDetailsActivity" />
+        </activity>
         <!-- endregion [END Activities] -->
+
     </application>
 </manifest>

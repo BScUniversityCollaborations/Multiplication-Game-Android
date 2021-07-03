@@ -10,6 +10,7 @@ import android.media.MediaPlayer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.models.User
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -61,13 +62,38 @@ open class BaseActivity : AppCompatActivity() {
 
     fun goToMainActivity(context: Context) {
         val intent = Intent(context, MainMenuActivity::class.java)
-        finish()
+        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        finishAfterTransition()
+        startActivity(intent)
+    }
+
+    fun goToMainActivityNoAnimation(context: Context) {
+        val intent = Intent(context, MainMenuActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        finishAfterTransition()
         startActivity(intent)
     }
 
     fun goToSignInActivity(context: Context) {
         finish()
         startActivity(Intent(context, SignInActivity::class.java))
+    }
+
+    fun goToEditProfileActivity(context: Context, user: User) {
+        val intent = Intent(context, EditProfileDetailsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+        startActivity(intent)
+    }
+
+    fun goToProfileDetailsActivity(context: Context, showEditSuccessSnackBar: Boolean) {
+        val intent = Intent(context, ProfileDetailsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_SUCCESS_SNACKBAR, showEditSuccessSnackBar)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        finishAfterTransition()
+        startActivity(intent)
     }
 
     fun goToSignInActivity(context: Context, showRegisteredSnackBar: Boolean, userEmail: String) {

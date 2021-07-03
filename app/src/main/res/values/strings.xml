@@ -35,7 +35,10 @@
     <string name="txt_error_empty_name">Please enter your full name.</string>
     <string name="txt_error_empty_password">Please enter your password.</string>
     <string name="txt_error_empty_email">Please enter your email.</string>
-    <string name="txt_error_empty_answer">The answer cannot be empty :(</string>
+    <string name="txt_error_empty_answer">The answer cannot be empty 😭</string>
+    <string name="txt_error_empty_full_name">Name cannot be empty 😭</string>
+    <string name="txt_success_done">Done!</string>
+    <string name="txt_success_update_user">The user details have been successfully updated.</string>
 
     <!-- Buttons -->
     <string name="txt_tables">Tables</string>
@@ -51,7 +54,7 @@
     <string name="input_txt_hint_dash">-</string>
     <string name="input_txt_hint_email">Your email address</string>
     <string name="input_txt_hint_password">Your password</string>
-    <string name="input_txt_hint_name">Your name</string>
+    <string name="input_txt_hint_full_name">Your full name</string>
     <string name="txt_completed">Completed!</string>
     <string name="txt_solve_the_multiplication">Solve the multiplication</string>
     <string name="txt_time_left">Time Left:</string>
@@ -100,5 +103,9 @@
     <string name="txt_section_3_header_2">2. The distributive property</string>
     <string name="txt_section3_context_2">The distributive property is symbolized as:<br/>\n➜ <b>a(b + c) = (ab) + (ac)</b><br/>\n<br/>\nPut simply, the property spreads out — or, as its name implies, distributes — the value of a equally to b and c.<br/>\n<br/>\nFor example,<br/>\nfor 6 x 8, they may use the distributive property to think:<br/>\n➜ <b>(6 x 5) + (6 x 3)</b>, or <b>30 + 18</b>
     </string>
+    <string name="txt_date_registered">Date Registered</string>
+    <string name="txt_save">Save</string>
+    <string name="button_logout">Logout</string>
+
 
 </resources>

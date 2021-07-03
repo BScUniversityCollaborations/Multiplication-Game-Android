@@ -19,9 +19,9 @@ import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class CustomDialog {
-    fun showTip(context: Context, title: String, body: String) {
-        val dialog = Dialog(context)
-        val binding = DialogTipBinding.inflate(LayoutInflater.from(context))
+    fun showTip(activity: Activity, title: String, body: String) {
+        val dialog = Dialog(activity)
+        val binding = DialogTipBinding.inflate(LayoutInflater.from(activity))
         dialog.setContentView(binding.root)
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -39,7 +39,14 @@ class CustomDialog {
         binding.apply {
             textViewHeader.text = title
             textViewBody.text = body
-            btnDismiss.setOnClickListener { dialog.dismiss() }
+            btnDismiss.setOnClickListener {
+                when (activity) {
+                    is TableResultActivity -> {
+                        activity.playButtonPressSound(activity)
+                        activity.goToNextEquation(true)
+                    }
+                }
+            }
         }
         dialog.show()
     }
@@ -63,14 +70,15 @@ class CustomDialog {
         binding.apply {
             btnDismiss.setOnClickListener { dialog.dismiss() }
             btnYes.setOnClickListener {
-                dialog.dismiss()
                 when (activity) {
                     is TableResultActivity -> {
+                        activity.playButtonPressSound(activity)
                         activity.finish()
                         activity.overridePendingTransition(R.anim.anim_slide_in_right,
                             R.anim.anim_slide_out_right)
                     }
                 }
+                dialog.dismiss()
             }
         }
 
@@ -97,10 +105,13 @@ class CustomDialog {
         binding.apply {
             btnDismiss.setOnClickListener { dialog.dismiss() }
             btnYes.setOnClickListener {
-                dialog.dismiss()
                 when (activity) {
-                    is TableResultActivity -> activity.goToNextEquation(true)
+                    is TableResultActivity -> {
+                        activity.playButtonPressSound(activity)
+                        activity.goToNextEquation(true)
+                    }
                 }
+                dialog.dismiss()
             }
         }
 
@@ -131,13 +142,14 @@ class CustomDialog {
 
             // Set click event listeners.
             binding.apply {
-                btnDismiss.setOnClickListener { dismiss() }
-            }
-
-            // When the dialog is dismiss go to next equation.
-            setOnDismissListener {
-                when (activity) {
-                    is TableResultActivity -> activity.goToNextEquation(false)
+                btnDismiss.setOnClickListener {
+                    when (activity) {
+                        is TableResultActivity -> {
+                            activity.playButtonPressSound(activity)
+                            activity.goToNextEquation(false)
+                        }
+                    }
+                    dismiss()
                 }
             }
 
@@ -149,6 +161,13 @@ class CustomDialog {
             backgroundExecutor.schedule({
                 dismiss()
             }, 10, TimeUnit.SECONDS)
+
+            // When the dialog is dismiss go to next equation.
+            setOnDismissListener {
+                when (activity) {
+                    is TableResultActivity -> activity.goToNextEquation(false)
+                }
+            }
 
             // Show dialog
             show()
