@@ -23,6 +23,11 @@ class MainMenuActivity : BaseActivity() {
 
     private fun setupUI() {
         binding.apply {
+            btnLearn.setOnClickListener {
+                playButtonPressSound(this@MainMenuActivity)
+                val intent = Intent(this@MainMenuActivity, LearnActivity::class.java)
+                startActivity(intent)
+            }
             btnStartTest.setOnClickListener {
                 playButtonPressSound(this@MainMenuActivity)
 //                val intent = Intent(this@MainMenuActivity, TestActivity::class.java)

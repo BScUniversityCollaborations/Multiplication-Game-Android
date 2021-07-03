@@ -11,8 +11,6 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_title_only"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -223,6 +221,7 @@
                         android:id="@+id/imgView_Arrow_Left"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+                        android:scaleType="fitXY"
                         android:layout_marginStart="16dp"
                         android:soundEffectsEnabled="false"
                         app:layout_constraintBottom_toBottomOf="@+id/txtInputLayout"

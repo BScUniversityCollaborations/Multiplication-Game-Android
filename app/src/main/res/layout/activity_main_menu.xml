@@ -52,10 +52,9 @@
                     app:srcCompat="@drawable/ic_abacus" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_Start_Test"
+                    android:id="@+id/btn_Learn"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
-                    android:soundEffectsEnabled="false"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
@@ -63,11 +62,39 @@
                     android:background="@drawable/ripple_btn_primary_selector"
                     android:fontFamily="@font/core_sans_cr_65_bold"
                     android:gravity="center"
+                    android:padding="12dp"
+                    android:soundEffectsEnabled="false"
+                    android:text="@string/txt_learn"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="32sp"
+                    app:backgroundTint="@null"
+                    app:icon="@drawable/ic_book_and_info"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:iconSize="32dp"
+                    app:iconTint="@color/colorWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_Header" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_Start_Test"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/ripple_btn_primary_selector"
+                    android:fontFamily="@font/core_sans_cr_65_bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:soundEffectsEnabled="false"
                     android:text="@string/txt_start_test"
                     android:textAlignment="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="32sp"
-                    android:padding="12dp"
                     app:backgroundTint="@null"
                     app:icon="@drawable/ic_test"
                     app:iconGravity="textStart"
@@ -76,7 +103,7 @@
                     app:iconTint="@color/colorWhite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_Header" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_Learn" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_Tables"

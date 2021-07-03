@@ -80,9 +80,16 @@
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
 
-        <!-- Table Test Equation activity -->
+        <!-- Table Result activity -->
         <activity
             android:name=".ui.activities.TableResultActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MultiplicationGame" />
+
+        <!-- Learn Section activity -->
+        <activity
+            android:name=".ui.activities.LearnActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.MultiplicationGame" />
