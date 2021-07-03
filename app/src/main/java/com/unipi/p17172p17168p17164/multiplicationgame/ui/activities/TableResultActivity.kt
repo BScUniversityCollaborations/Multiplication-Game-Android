@@ -49,7 +49,7 @@ class TableResultActivity : BaseActivity() {
         checkIntentExtras()
         setupUI()
         startTimer()
-        disableBackgroundMusic()
+        // disableBackgroundMusic()
     }
 
     private fun checkIntentExtras() {
