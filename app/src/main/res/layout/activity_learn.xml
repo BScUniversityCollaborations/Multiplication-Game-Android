@@ -8,65 +8,80 @@
     tools:context=".ui.activities.MainMenuActivity"
     tools:ignore="ContentDescription">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_title_only"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_title_only"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent" >
 
-            <com.google.android.material.tabs.TabLayout
-                android:background="@color/colorPrimary"
-                android:id="@+id/tabs"
-                android:layout_height="48dp"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorWhite"
-                app:tabIndicatorHeight="2dp"
-                android:fillViewport="true"
-                android:layout_gravity="bottom"
-                app:tabInlineLabel="true"
-                app:tabMode="fixed"
-                app:tabIconTint="@color/selector_tab"
-                app:tabRippleColor="@color/colorPrimaryLowOpacity"
-                app:tabSelectedTextColor="@color/colorWhite"
-                app:tabTextColor="@color/colorPrimary">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test 1" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorStatusBar"
+                    android:fillViewport="true"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:tabGravity="fill"
+                    app:tabIconTint="@color/selector_tab"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabIndicatorHeight="4dp"
+                    app:tabInlineLabel="true"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@color/colorPrimaryDark"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextColor="@color/colorWhite">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test 1" />
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_section_1" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test 1" />
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_section_2" />
 
-            </com.google.android.material.tabs.TabLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_section_3" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_tables" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerLearnSections"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </com.google.android.material.tabs.TabLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerLearnSections"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="2dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

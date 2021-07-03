@@ -66,6 +66,39 @@
     <string name="txt_time_out_2">Your time has an out. You may have to improve your solve speed. You will be redirected to next multiplication in 10 seconds.</string>
     <string name="txt_time_out">Time Out!</string>
     <string name="txt_learn">Learn</string>
-    <string name="txt_learn_about_multiplication_tables">Learn about multiplication tables</string>
+    <string name="txt_learn_about_multiplication_tables">Learn</string>
+
+    <string name="txt_section_1">Section 1</string>
+    <string name="txt_section_2">Section 2</string>
+    <string name="txt_basics_header_1">1. Relating multiplication to addition</string>
+    <string name="txt_basics_context_1">➜ 2 x 2 is the same as 2 + 2<br/>\nor<br/>\n➜ 3 x 4 is the same as 4 + 4 + 4
+    </string>
+
+    <string name="txt_section_1_desc">This section covers the basic stuff 😎</string>
+    <string name="txt_section_2_desc">This section will get you started with multiplication 🥰</string>
+    <string name="txt_section_3_desc">The section will show you some awesome tricks! 🤓</string>
+
+    <string name="txt_section_1_basics">Section 1: Basics</string>
+    <string name="txt_section_1_header_2">2. Start with the multiples of zero and one</string>
+    <string name="txt_section_1_context_2">
+        Adding zero to a number has no effect on its identity:<br/>\n<b>➜ n + 0 = n</b><br/>\nin multiplication, any number multiplied by zero is also zero:<br/>\n<b>➜ n x 0 = 0</b><br/>\n0 is a void!<br/>\n<br/>\nMultiplying by one (The identity property):<br/>\nIn short, the identity property states that the product of a given number and one is that number itself:<br/>\n<b>➜ n x 1 = n</b><br/>\n<br/>\nMultiplying a number by one results in the same value. Let\'s say, one x 10 apples results to 10 apples. 1 is a mirror!
+    </string>
+    <string name="txt_section_3">Section 3</string>
+    <string name="txt_section_4">Section 4</string>
+    <string name="txt_section_2_getting_started">Section 2: Getting Started</string>
+    <string name="txt_8_groups_of_2_16">8 groups of 2 = 16</string>
+    <string name="txt_8_x_2">8 x 2</string>
+    <string name="txt_getting_started_header_1">The commutative property</string>
+    <string name="txt_getting_started_context_1">Just like addition, multiplication is commutative, meaning the order of factors doesn\'t change the product (the answer).<br/>\n<br/>\nIn other words, two numbers can be multiplied in any order, and the product will be the same. For example, multiplying 8 x 2 will give you the same answer as multiplying 2 x 8.
+    </string>
+    <string name="txt_2_groups_of_8_16">2 groups of 8 = 16</string>
+    <string name="txt_rotate_the_array">Rotate the array</string>
+    <string name="txt_section_3_techniques">Section 3: Techniques</string>
+    <string name="txt_section_3_header_1">1. The associative property</string>
+    <string name="txt_section3_context_1">The rule of associative property states that no matter the way you group factors, the product will always be the same.<br/>\n<br/>\nFor example,<br/>\n➜ (a x b) x c = a x (b x c)<br/>\nor<br/>\n➜ (1 x 2) x 3 = 1 x (2 x 3)
+    </string>
+    <string name="txt_section_3_header_2">2. The distributive property</string>
+    <string name="txt_section3_context_2">The distributive property is symbolized as:<br/>\n➜ <b>a(b + c) = (ab) + (ac)</b><br/>\n<br/>\nPut simply, the property spreads out — or, as its name implies, distributes — the value of a equally to b and c.<br/>\n<br/>\nFor example,<br/>\nfor 6 x 8, they may use the distributive property to think:<br/>\n➜ <b>(6 x 5) + (6 x 3)</b>, or <b>30 + 18</b>
+    </string>
 
 </resources>
