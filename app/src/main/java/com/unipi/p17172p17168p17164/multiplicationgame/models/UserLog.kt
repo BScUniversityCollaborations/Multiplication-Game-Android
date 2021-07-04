@@ -15,9 +15,10 @@ import java.util.*
 @IgnoreExtraProperties
 data class UserLog(
     val userId: String = "",
-    val fullName: String = "",
-    val email: String = "",
-    val profileCompleted: Boolean = false,
+    val logId: String = "",
+    val type: String = "", // time_up, skip, wrong, correct
+    val numFirst: Int = 0,
+    val numSecond: Int = 0,
     @ServerTimestamp
-    val dateRegistered: Date = Date(),
+    val dateAdded: Date = Date(),
 ) : Parcelable

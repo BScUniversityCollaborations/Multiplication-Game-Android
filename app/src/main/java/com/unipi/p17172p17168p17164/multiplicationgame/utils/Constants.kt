@@ -47,11 +47,12 @@ object Constants {
     const val FIELD_USER_ID: String = "userId"
 
     // Intent Extras
-    const val EXTRA_USER_ID: String = "extraUserId"
     const val EXTRA_USER_EMAIL: String = "extraUserEmail"
     const val EXTRA_USER_DETAILS: String = "extraUserDetails"
     const val EXTRA_NUMBER_FIRST: String = "extraNumberFirst"
     const val EXTRA_NUMBER_SECOND: String = "extraNumberSecond"
+    const val EXTRA_CORRECT_ANSWERS: String = "extraCorrectAnswers"
+    const val EXTRA_WRONG_ANSWERS: String = "extraWrongAnswers"
     const val EXTRA_LIMIT: String = "extraLimit"
     const val EXTRA_REG_USERS_SNACKBAR: String = "extraShowRegisteredUserSnackbar"
     const val EXTRA_SUCCESS_SNACKBAR: String = "extraShowSuccessSnackbar"

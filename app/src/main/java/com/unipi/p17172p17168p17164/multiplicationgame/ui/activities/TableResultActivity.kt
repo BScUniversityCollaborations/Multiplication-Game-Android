@@ -25,6 +25,8 @@ class TableResultActivity : BaseActivity() {
     private var numFirst: Int = 0
     private var numSecond: Int = 0
     private var limit: Int = 10
+    private var correctAnswers: Int = 0
+    private var wrongAnswers: Int = 0
     private var correctResult: Int = -1
 
     private lateinit var timer: CountDownTimer
@@ -58,7 +60,7 @@ class TableResultActivity : BaseActivity() {
             if (intent.hasExtra(Constants.EXTRA_NUMBER_FIRST)
                 && intent.hasExtra(Constants.EXTRA_NUMBER_SECOND)
                 && intent.hasExtra(Constants.EXTRA_LIMIT)) {
-                setEquationVariables()
+                    setEquationVariables()
             }
             else {
                 // todo show error dialog
@@ -69,6 +71,9 @@ class TableResultActivity : BaseActivity() {
     private fun setEquationVariables() {
         numFirst = intent.extras!!.getInt(Constants.EXTRA_NUMBER_FIRST)
         numSecond = intent.extras!!.getInt(Constants.EXTRA_NUMBER_SECOND)
+
+        correctAnswers = intent.extras!!.getInt(Constants.EXTRA_CORRECT_ANSWERS)
+        wrongAnswers = intent.extras!!.getInt(Constants.EXTRA_WRONG_ANSWERS)
 
         correctResult = numFirst * numSecond
         limit = intent.extras!!.getInt(Constants.EXTRA_LIMIT)
@@ -146,15 +151,9 @@ class TableResultActivity : BaseActivity() {
     }
 
     fun goToNextEquation(skip: Boolean) {
-        numSecond++
-
-        if (numSecond > limit) {
-            // todo show dialog
-            return
-        }
 
         if (skip) {
-            // todo count as mistake/skip
+            // todo count as skip
         }
         else if (timerState == TimerState.Finished) {
 
@@ -164,16 +163,33 @@ class TableResultActivity : BaseActivity() {
                 val userAnswer = txtInput.text.toString().trim { it <= ' ' }.toInt()
                 if (userAnswer == correctResult) {
                     // todo count as correct
+                    CustomDialog().showCorrectAnswerDialog(this@TableResultActivity)
+                    playPositiveSound(this@TableResultActivity)
+                    correctAnswers++
                 }
                 else {
-                    // todo count as mistake
+                    CustomDialog().showWrongAnswerDialog(this@TableResultActivity)
+                    playNegativeSound(this@TableResultActivity)
+                    wrongAnswers++
                 }
             }
         }
+
+        numSecond++
+        if (numSecond > limit) {
+            CustomDialog().showTestResults(
+                this@TableResultActivity,
+                correctAnswers.toString(),
+                wrongAnswers.toString())
+            return
+        }
+
         // If next number of table is not bigger than the limit e.x. bigger than 10
         val intent = Intent(this@TableResultActivity, TableResultActivity::class.java)
         intent.putExtra(Constants.EXTRA_NUMBER_FIRST, numFirst)
         intent.putExtra(Constants.EXTRA_NUMBER_SECOND, numSecond)
+        intent.putExtra(Constants.EXTRA_CORRECT_ANSWERS, correctAnswers)
+        intent.putExtra(Constants.EXTRA_WRONG_ANSWERS, wrongAnswers)
         intent.putExtra(Constants.EXTRA_LIMIT, limit)
         finish()
         startActivity(intent)

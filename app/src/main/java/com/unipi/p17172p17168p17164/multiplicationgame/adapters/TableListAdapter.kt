@@ -50,6 +50,8 @@ open class TablesListAdapter(
             val intent = Intent(tablesListActivity, TableResultActivity::class.java)
             intent.putExtra(Constants.EXTRA_NUMBER_FIRST, model.number)
             intent.putExtra(Constants.EXTRA_NUMBER_SECOND, 1)
+            intent.putExtra(Constants.EXTRA_CORRECT_ANSWERS, 0)
+            intent.putExtra(Constants.EXTRA_WRONG_ANSWERS, 0)
             intent.putExtra(Constants.EXTRA_LIMIT, model.limit)
             tablesListActivity.startActivity(intent)
         }
