@@ -19,9 +19,6 @@ object Constants {
     const val VOLUME_MEDIUM: Float = 75f
     const val VOLUME_MAX: Float = 100f
     const val DEFAULT_TEST_TIMER_DELAY: Long = 60000
-    const val ACTION_PLAY: String = "ACTION"
-    const val ACTION_PAUSE: String = "PAUSE"
-    const val ACTION_RESUME: String = "RESUME"
     val DATE_FORMAT: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
     val SNACKBAR_BEHAVIOR = BaseTransientBottomBar.Behavior().apply {
         setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY) }
@@ -45,6 +42,10 @@ object Constants {
     const val FIELD_NAME: String = "name"
     const val FIELD_DESC: String = "desc"
     const val FIELD_USER_ID: String = "userId"
+    const val TYPE_SKIP: String = "skip"
+    const val TYPE_TIME_UP: String = "time_up"
+    const val TYPE_MISTAKE: String = "mistake"
+    const val TYPE_SOLVED: String = "solved"
 
     // Intent Extras
     const val EXTRA_USER_EMAIL: String = "extraUserEmail"

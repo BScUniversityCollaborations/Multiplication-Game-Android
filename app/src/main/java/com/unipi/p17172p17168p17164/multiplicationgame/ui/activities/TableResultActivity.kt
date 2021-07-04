@@ -13,7 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.content.res.AppCompatResources
 import com.unipi.p17172.emarket.utils.SnackBarErrorClass
 import com.unipi.p17172p17168p17164.multiplicationgame.R
+import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTableResultBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.models.UserLog
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.CustomDialog
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Utils
@@ -152,27 +154,39 @@ class TableResultActivity : BaseActivity() {
 
     fun goToNextEquation(skip: Boolean) {
 
-        if (skip) {
-            // todo count as skip
-        }
-        else if (timerState == TimerState.Finished) {
+        var userLog: UserLog? = null
+        var state: String? = null
 
-        }
+        if (skip)
+            state = Constants.TYPE_SKIP
+        else if (timerState == TimerState.Finished)
+            state = Constants.TYPE_TIME_UP
         else {
             binding.apply {
                 val userAnswer = txtInput.text.toString().trim { it <= ' ' }.toInt()
                 if (userAnswer == correctResult) {
-                    // todo count as correct
+                    state = Constants.TYPE_SOLVED
                     CustomDialog().showCorrectAnswerDialog(this@TableResultActivity)
                     playPositiveSound(this@TableResultActivity)
                     correctAnswers++
                 }
                 else {
+                    state = Constants.TYPE_MISTAKE
                     CustomDialog().showWrongAnswerDialog(this@TableResultActivity)
                     playNegativeSound(this@TableResultActivity)
                     wrongAnswers++
                 }
             }
+        }
+
+        if (userLog != null) {
+            userLog = UserLog(
+                FirestoreHelper().getCurrentUserID(),
+                state!!,
+                numFirst,
+                numSecond
+            )
+            FirestoreHelper().addLogEntry(this, userLog)
         }
 
         numSecond++

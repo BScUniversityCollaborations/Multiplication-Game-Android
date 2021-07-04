@@ -43,7 +43,7 @@
     <!-- Buttons -->
     <string name="txt_tables">Tables</string>
     <string name="txt_start_test">Start Test</string>
-    <string name="txt_mistakes">Mistakes</string>
+    <string name="txt_history">History</string>
     <string name="txt_dismiss">Dismiss</string>
     <string name="button_send">Send</string>
     <string name="button_dismiss">Dismiss</string>

@@ -15,10 +15,10 @@ import java.util.*
 @IgnoreExtraProperties
 data class UserLog(
     val userId: String = "",
-    val logId: String = "",
-    val type: String = "", // time_up, skip, wrong, correct
+    val type: String = "", // time_up, skip, mistake, solved
     val numFirst: Int = 0,
     val numSecond: Int = 0,
     @ServerTimestamp
     val dateAdded: Date = Date(),
-) : Parcelable
+    val logId: String = "",
+    ) : Parcelable
