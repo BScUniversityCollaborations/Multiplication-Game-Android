@@ -122,9 +122,9 @@ class SignInActivity : BaseActivity() {
         // Hide the progress dialog.
         hideProgressDialog()
 
+        finish()
         // Redirect the user to Dashboard Screen after log in.
         goToMainActivity(this@SignInActivity)
-        finish()
     }
 
     private fun validateFields(): Boolean {

@@ -64,7 +64,6 @@ open class BaseActivity : AppCompatActivity() {
         val intent = Intent(context, MainMenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        finishAfterTransition()
         startActivity(intent)
     }
 
@@ -72,13 +71,12 @@ open class BaseActivity : AppCompatActivity() {
         val intent = Intent(context, MainMenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        finishAfterTransition()
         startActivity(intent)
     }
 
     fun goToSignInActivity(context: Context) {
-        finish()
-        startActivity(Intent(context, SignInActivity::class.java))
+        val intent = Intent(context, SignInActivity::class.java)
+        startActivity(intent)
     }
 
     fun goToEditProfileActivity(context: Context, user: User) {
@@ -92,17 +90,14 @@ open class BaseActivity : AppCompatActivity() {
         intent.putExtra(Constants.EXTRA_SUCCESS_SNACKBAR, showEditSuccessSnackBar)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        finishAfterTransition()
         startActivity(intent)
     }
 
     fun goToSignInActivity(context: Context, showRegisteredSnackBar: Boolean, userEmail: String) {
-
         val intent = Intent(context, SignInActivity::class.java)
         intent.putExtra(Constants.EXTRA_REG_USERS_SNACKBAR, showRegisteredSnackBar)
         intent.putExtra(Constants.EXTRA_USER_EMAIL, userEmail)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        finish()
         startActivity(intent)
     }
 

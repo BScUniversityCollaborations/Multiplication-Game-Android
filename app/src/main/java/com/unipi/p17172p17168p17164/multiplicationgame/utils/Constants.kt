@@ -33,9 +33,13 @@ object Constants {
     // Fields
     const val FIELD_DATE_ADDED: String = "dateAdded"
     const val FIELD_DATE_REGISTERED: String = "dateRegistered"
+    const val FIELD_TYPE: String = "type"
+    const val FIELD_LOG_ID: String = "logId"
     const val FIELD_EMAIL: String = "email"
     const val FIELD_FULL_NAME: String = "fullName"
     const val FIELD_ID: String = "id"
+    const val FIELD_NUM_FIRST: String = "numFirst"
+    const val FIELD_NUM_SECOND: String = "numSecond"
     const val FIELD_TABLE_ID: String = "tableId"
     const val FIELD_NUMBER: String = "number"
     const val FIELD_LIMIT: String = "limit"

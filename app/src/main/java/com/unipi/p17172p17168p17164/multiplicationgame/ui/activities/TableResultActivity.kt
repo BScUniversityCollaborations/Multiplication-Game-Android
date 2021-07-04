@@ -31,6 +31,8 @@ class TableResultActivity : BaseActivity() {
     private var wrongAnswers: Int = 0
     private var correctResult: Int = -1
 
+    private lateinit var state: String
+
     private lateinit var timer: CountDownTimer
     private var timerState = TimerState.Running
     var millisInFuture: Long = Constants.DEFAULT_TEST_TIMER_DELAY //30 seconds
@@ -152,11 +154,7 @@ class TableResultActivity : BaseActivity() {
         timer.start()
     }
 
-    fun goToNextEquation(skip: Boolean) {
-
-        var userLog: UserLog? = null
-        var state: String? = null
-
+    fun checkAnswer(skip: Boolean) {
         if (skip)
             state = Constants.TYPE_SKIP
         else if (timerState == TimerState.Finished)
@@ -178,16 +176,17 @@ class TableResultActivity : BaseActivity() {
                 }
             }
         }
+        stopTimer()
+    }
 
-        if (userLog != null) {
-            userLog = UserLog(
-                FirestoreHelper().getCurrentUserID(),
-                state!!,
-                numFirst,
-                numSecond
-            )
-            FirestoreHelper().addLogEntry(this, userLog)
-        }
+    fun goToNextEquation() {
+        val userLog = UserLog(
+            FirestoreHelper().getCurrentUserID(),
+            state,
+            numFirst,
+            numSecond
+        )
+        FirestoreHelper().addLogEntry(this, userLog)
 
         numSecond++
         if (numSecond > limit) {
@@ -214,6 +213,11 @@ class TableResultActivity : BaseActivity() {
         startTimer()
     }
 
+    private fun stopTimer() {
+        timerState = TimerState.Stopped
+        timer.cancel()
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -230,8 +234,7 @@ class TableResultActivity : BaseActivity() {
     override fun onStop() {
         super.onStop()
 
-        timerState = TimerState.Stopped
-        timer.cancel()
+        stopTimer()
     }
 
     private fun validateFields(): Boolean {
@@ -281,7 +284,7 @@ class TableResultActivity : BaseActivity() {
             btnNext.setOnClickListener {
                 playButtonPressSound(this@TableResultActivity)
                 if (validateFields()) {
-                    goToNextEquation(false)
+                    checkAnswer(false)
                 }
             }
             btnSkip.setOnClickListener {

@@ -29,6 +29,8 @@
         proceed to sign in.</string>
     <string name="txt_table_format">Table of %1$s (%2$s)</string>
     <string name="txt_timer_format">%1$s:%2$s</string>
+    <string name="txt_equation_format">%1$d x %2$d</string>
+    <string name="txt_type_format">➜ Type: %1$s</string>
 
     <!-- Snackbar -->
     <string name="txt_error_registration_failed">An error has occurred with registration, please contact our support team.</string>
@@ -113,6 +115,12 @@
     <string name="txt_test_done_2">That was it! Here are your performance results:</string>
     <string name="txt_correct_answers">➜ Correct Answers:</string>
     <string name="txt_wrong_answers">➜ Wrong Answers:</string>
+    <string name="txt_sort_by">Sort By</string>
+    <string name="txt_sort">Sort</string>
+    <string name="txt_date_added">Date Added</string>
+    <string name="txt_type">Type</string>
+    <string name="txt_no_history">No history found!</string>
+    <string name="txt_no_history_2">Start by doing some multiplications to track your performance!</string>
 
 
 </resources>

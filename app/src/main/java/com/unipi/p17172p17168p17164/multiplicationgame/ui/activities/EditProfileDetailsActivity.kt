@@ -70,6 +70,7 @@ class EditProfileDetailsActivity : BaseActivity() {
         // Hide the progress dialog
         hideProgressDialog()
 
+        finish()
         goToProfileDetailsActivity(this, true)
     }
 

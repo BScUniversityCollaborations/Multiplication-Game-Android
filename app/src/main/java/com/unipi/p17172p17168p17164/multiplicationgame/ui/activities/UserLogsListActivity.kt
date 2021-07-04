@@ -2,56 +2,79 @@ package com.unipi.p17172p17168p17164.multiplicationgame.ui.activities
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unipi.p17172p17168p17164.multiplicationgame.R
-import com.unipi.p17172p17168p17164.multiplicationgame.adapters.TablesListAdapter
+import com.unipi.p17172p17168p17164.multiplicationgame.adapters.UserLogListAdapter
 import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
-import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTablesListBinding
-import com.unipi.p17172p17168p17164.multiplicationgame.models.MultiplicationTable
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityUserLogsListBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.models.UserLog
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
+import com.unipi.p17172p17168p17164.multiplicationgame.utils.CustomDialog
 
 class UserLogsListActivity : BaseActivity() {
     // ~~~~~~~~ VARIABLES ~~~~~~~~
-    private lateinit var binding: ActivityTablesListBinding
+    private lateinit var binding: ActivityUserLogsListBinding
+    private var sortBy: String = Constants.FIELD_DATE_ADDED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTablesListBinding.inflate(layoutInflater)
+        binding = ActivityUserLogsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar()
-        loadTables()
+        setupUI()
+        loadUserLogs(sortBy)
     }
 
-    private fun loadTables() {
-        FirestoreHelper().getTablesList(this)
-    }
+    fun loadUserLogs(sortBy: String) {
 
+        showProgressDialog()
+
+        FirestoreHelper().getUserLogEntries(this, sortBy)
+    }
+    
     /**
      * A function to get the successful tables list from cloud firestore.
      *
-     * @param tablesList Will receive the tables list from cloud firestore.
+     * @param userLogsList Will receive the tables list from cloud firestore.
      */
-    fun successTablesList(tablesList: ArrayList<MultiplicationTable>) {
+    fun successUserLogsFromFireStore(userLogsList: ArrayList<UserLog>) {
 
-        if (tablesList.size > 0) {
+        hideProgressDialog()
 
-            val tablesListAdapter = TablesListAdapter(this, tablesList)
+        if (userLogsList.size > 0) {
+
+            val userLogAdapter = UserLogListAdapter(this, userLogsList)
 
             binding.apply {
                 recyclerView.run {
-                    adapter = tablesListAdapter
-
                     layoutManager = LinearLayoutManager(this@UserLogsListActivity, LinearLayoutManager.VERTICAL, false)
                     setHasFixedSize(true)
+
+                    adapter = userLogAdapter
                 }
             }
         }
+        else
+            binding.layoutEmptyState.root.visibility = View.VISIBLE
     }
 
+    fun hideLogs() {
+        hideProgressDialog()
+        binding.layoutEmptyState.root.visibility = View.VISIBLE
+    }
+
+    private fun setupUI() {
+        setupActionBar()        
+    }
+    
     private fun setupActionBar() {
         binding.toolbar.apply {
             setSupportActionBar(root)
-            textViewLabel.text = getString(R.string.txt_tables)
+            textViewActionBarLabel.text = getString(R.string.txt_tables)
+            imgBtnFilter.setOnClickListener {
+                CustomDialog().showFilterDialog(this@UserLogsListActivity)
+            }
         }
 
         val actionBar = supportActionBar
@@ -72,8 +95,4 @@ class UserLogsListActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadTables()
-    }
 }

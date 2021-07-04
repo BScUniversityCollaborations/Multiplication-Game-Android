@@ -134,7 +134,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_Start_Test" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_Mistakes"
+                    android:id="@+id/btn_Logs"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

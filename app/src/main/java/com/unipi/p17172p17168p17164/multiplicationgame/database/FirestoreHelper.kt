@@ -160,6 +160,51 @@ class FirestoreHelper {
             }
     }
 
+    /**
+     * A function to get the user logs list from cloud firestore.
+     *
+     * @param activity The fragment is passed as parameter as the function is called from fragment and need to the success result.
+     */
+    fun getUserLogEntries(activity: Activity, sortBy: String) {
+        // The collection name for User Logs
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .whereEqualTo(Constants.FIELD_USER_ID, getCurrentUserID())
+            .orderBy(sortBy, Query.Direction.ASCENDING)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.d("User Logs List", document.documents.toString())
+
+                // Here we have created a new instance for user logs ArrayList.
+                val userLogsList: ArrayList<UserLog> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into user logs ArrayList.
+                for (i in document.documents) {
+
+                    val userLog = i.toObject(UserLog::class.java)
+                    userLog!!.logId = i.id
+
+                    userLogsList.add(userLog)
+                }
+                when (activity) {
+                    is UserLogsListActivity -> {
+                        activity.successUserLogsFromFireStore(userLogsList)
+                    }
+                    else -> {}
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is UserLogsListActivity -> {
+                        activity.hideLogs()
+                    }
+                    else -> {}
+                }
+                Log.e("Get User Logs List", "Error while getting user logs list.", e)
+            }
+    }
+
     fun addLogEntry(activity: Activity, userLog: UserLog) {
 
         // Collection name address.
@@ -169,18 +214,18 @@ class FirestoreHelper {
             .set(userLog, SetOptions.merge())
             .addOnSuccessListener {
 
-                when (activity) {
+                /*when (activity) {
                     is TableResultActivity -> {
                         activity.hideProgressDialog()
                     }
-                }
+                }*/
             }
             .addOnFailureListener { e ->
-                when (activity) {
+                /*when (activity) {
                     is TableResultActivity -> {
                         activity.hideProgressDialog()
                     }
-                }
+                }*/
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while adding the log entry.",

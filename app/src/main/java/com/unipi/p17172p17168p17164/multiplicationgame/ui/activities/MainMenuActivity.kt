@@ -38,10 +38,10 @@ class MainMenuActivity : BaseActivity() {
                 val intent = Intent(this@MainMenuActivity, TablesListActivity::class.java)
                 startActivity(intent)
             }
-            btnMistakes.setOnClickListener {
+            btnLogs.setOnClickListener {
                 playButtonPressSound(this@MainMenuActivity)
-//                val intent = Intent(this@MainMenuActivity, ProfileDetailsActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this@MainMenuActivity, UserLogsListActivity::class.java)
+                startActivity(intent)
             }
             imgBtnProfile.setOnClickListener {
                 playButtonPressSound(this@MainMenuActivity)

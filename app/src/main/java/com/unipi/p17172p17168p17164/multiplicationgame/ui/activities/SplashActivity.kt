@@ -51,9 +51,12 @@ class SplashActivity : BaseActivity() {
 
         // Execute a task in the background thread after some seconds.
         backgroundExecutor.schedule({
-            if (FirestoreHelper().getCurrentUserID() == "")
+            if (FirestoreHelper().getCurrentUserID() == "") {
+                finish()
                 goToSignInActivity(this@SplashActivity)
+            }
             else {
+                finish()
                 goToMainActivityNoAnimation(this@SplashActivity)
             }
         }, Constants.SPLASH_SCREEN_DELAY, TimeUnit.MILLISECONDS)

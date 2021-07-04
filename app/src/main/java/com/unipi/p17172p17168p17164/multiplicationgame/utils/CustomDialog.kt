@@ -11,6 +11,7 @@ import android.view.WindowManager
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.*
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TableResultActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.UserLogsListActivity
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
@@ -40,7 +41,7 @@ class CustomDialog {
                 when (activity) {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
-                        activity.goToNextEquation(true)
+                        activity.checkAnswer(true)
                     }
                 }
             }
@@ -105,7 +106,7 @@ class CustomDialog {
                 when (activity) {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
-                        activity.goToNextEquation(true)
+                        activity.checkAnswer(true)
                     }
                 }
                 dialog.dismiss()
@@ -143,7 +144,7 @@ class CustomDialog {
                     when (activity) {
                         is TableResultActivity -> {
                             activity.playButtonPressSound(activity)
-                            activity.goToNextEquation(false)
+                            activity.checkAnswer(false)
                         }
                     }
                     dismiss()
@@ -162,8 +163,53 @@ class CustomDialog {
             // When the dialog is dismiss go to next equation.
             setOnDismissListener {
                 when (activity) {
-                    is TableResultActivity -> activity.goToNextEquation(false)
+                    is TableResultActivity -> activity.checkAnswer(false)
                 }
+            }
+
+            // Show dialog
+            show()
+        }
+    }
+
+    fun showFilterDialog(activity: Activity) {
+        val dialog = Dialog(activity)
+        val binding = DialogFilterBinding.inflate(LayoutInflater.from(activity))
+
+        // Dialog Properties
+        dialog.run {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCanceledOnTouchOutside(true)
+            setCancelable(true)
+            window?.apply {
+                // Add some show/hide dialog animations.
+                setWindowAnimations(R.style.DialogAnimation)
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+/*                setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                )*/
+            }
+
+            setContentView(binding.root)
+
+            // Set click event listeners.
+            binding.apply {
+                btnSort.setOnClickListener {
+                    when (activity) {
+                        is UserLogsListActivity -> {
+                            activity.playButtonPressSound(activity)
+                            radioGroup.checkedRadioButtonId.apply {
+                                if (this == 0)
+                                    activity.loadUserLogs(Constants.FIELD_DATE_ADDED)
+                                else
+                                    activity.loadUserLogs(Constants.FIELD_TYPE)
+                            }
+                        }
+                    }
+                    dismiss()
+                }
+                btnDismiss.setOnClickListener { dismiss() }
             }
 
             // Show dialog
@@ -183,8 +229,6 @@ class CustomDialog {
                 // Add some show/hide dialog animations.
                 setWindowAnimations(R.style.DialogAnimation)
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                // Remove the dim/shadow background behind the dialog.
-                clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
                 setFlags(
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -199,7 +243,6 @@ class CustomDialog {
                     when (activity) {
                         is TableResultActivity -> {
                             activity.playButtonPressSound(activity)
-                            activity.goToNextEquation(false)
                         }
                     }
                     dismiss()
@@ -218,7 +261,7 @@ class CustomDialog {
             // When the dialog is dismiss go to next equation.
             setOnDismissListener {
                 when (activity) {
-                    is TableResultActivity -> activity.goToNextEquation(false)
+                    is TableResultActivity -> activity.goToNextEquation()
                 }
             }
 
@@ -239,8 +282,6 @@ class CustomDialog {
                 // Add some show/hide dialog animations.
                 setWindowAnimations(R.style.DialogAnimation)
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                // Remove the dim/shadow background behind the dialog.
-                clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
                 setFlags(
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -255,7 +296,6 @@ class CustomDialog {
                     when (activity) {
                         is TableResultActivity -> {
                             activity.playButtonPressSound(activity)
-                            activity.goToNextEquation(false)
                         }
                     }
                     dismiss()
@@ -274,7 +314,7 @@ class CustomDialog {
             // When the dialog is dismiss go to next equation.
             setOnDismissListener {
                 when (activity) {
-                    is TableResultActivity -> activity.goToNextEquation(false)
+                    is TableResultActivity -> activity.goToNextEquation()
                 }
             }
 
@@ -283,9 +323,9 @@ class CustomDialog {
         }
     }
 
-    fun showTestResults(context: Context, correctAnswers: String, wrongAnswers: String) {
-        val dialog = Dialog(context)
-        val binding = DialogTestResultsBinding.inflate(LayoutInflater.from(context))
+    fun showTestResults(activity: Activity, correctAnswers: String, wrongAnswers: String) {
+        val dialog = Dialog(activity)
+        val binding = DialogTestResultsBinding.inflate(LayoutInflater.from(activity))
 
         // Dialog Properties
         dialog.run {
@@ -295,8 +335,6 @@ class CustomDialog {
                 // Add some show/hide dialog animations.
                 setWindowAnimations(R.style.DialogAnimation)
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                // Remove the dim/shadow background behind the dialog.
-                clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
                 setFlags(
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -307,9 +345,18 @@ class CustomDialog {
 
             // Set dialog title and body and also add click event listeners.
             binding.apply {
-                /*textViewHeader.text = title
-                textViewBody.text = body*/
-                btnDismiss.setOnClickListener { dialog.dismiss() }
+                textViewCorrectAnswersValue.text = correctAnswers
+                textViewWrongAnswersValue.text = wrongAnswers
+                btnDismiss.setOnClickListener {
+                    dialog.dismiss()
+                    when (activity) {
+                        is TableResultActivity -> {
+                            activity.finish()
+                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_right)
+                        }
+                    }
+                }
             }
 
             // Show dialog

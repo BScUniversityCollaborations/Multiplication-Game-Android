@@ -181,12 +181,10 @@ class SignUpActivity : BaseActivity() {
          * and send him to Intro Screen for Sign-In
          */
         FirebaseAuth.getInstance().signOut()
-
+        // Finish the Register Screen
+        finish()
         goToSignInActivity(this@SignUpActivity,
             true,
             binding.inputTxtEmail.text.toString())
-
-        // Finish the Register Screen
-        finish()
     }
 }

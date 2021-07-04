@@ -20,5 +20,5 @@ data class UserLog(
     val numSecond: Int = 0,
     @ServerTimestamp
     val dateAdded: Date = Date(),
-    val logId: String = "",
+    var logId: String = "",
     ) : Parcelable

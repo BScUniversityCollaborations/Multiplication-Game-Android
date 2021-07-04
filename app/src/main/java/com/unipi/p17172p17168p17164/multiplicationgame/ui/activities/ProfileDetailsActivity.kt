@@ -104,6 +104,7 @@ class ProfileDetailsActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        finish()
         goToMainActivityNoAnimation(this)
     }
 }
