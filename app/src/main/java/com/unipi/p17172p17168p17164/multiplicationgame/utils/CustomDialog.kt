@@ -93,10 +93,6 @@ class CustomDialog {
         dialog.window?.setWindowAnimations(R.style.DialogAnimation)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        dialog.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        )
 
         dialog.setContentView(binding.root)
 
@@ -107,6 +103,7 @@ class CustomDialog {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
                         activity.checkAnswer(true)
+                        activity.goToNextEquation()
                     }
                 }
                 dialog.dismiss()
