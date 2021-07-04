@@ -94,7 +94,6 @@
                         android:paddingEnd="0dp"
                         android:theme="@style/RadioButton"
                         android:text="@string/txt_type" />
-
                 </RadioGroup>
 
                 <com.google.android.material.button.MaterialButton

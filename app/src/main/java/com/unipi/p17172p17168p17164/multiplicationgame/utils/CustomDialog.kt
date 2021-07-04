@@ -2,7 +2,6 @@ package com.unipi.p17172p17168p17164.multiplicationgame.utils
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -182,10 +181,6 @@ class CustomDialog {
                 // Add some show/hide dialog animations.
                 setWindowAnimations(R.style.DialogAnimation)
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-/*                setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                )*/
             }
 
             setContentView(binding.root)
@@ -197,10 +192,10 @@ class CustomDialog {
                         is UserLogsListActivity -> {
                             activity.playButtonPressSound(activity)
                             radioGroup.checkedRadioButtonId.apply {
-                                if (this == 0)
-                                    activity.loadUserLogs(Constants.FIELD_DATE_ADDED)
-                                else
-                                    activity.loadUserLogs(Constants.FIELD_TYPE)
+                                when (this) {
+                                    0 -> activity.loadUserLogs(Constants.FIELD_DATE_ADDED)
+                                    else -> activity.loadUserLogs(Constants.FIELD_TYPE)
+                                }
                             }
                         }
                     }

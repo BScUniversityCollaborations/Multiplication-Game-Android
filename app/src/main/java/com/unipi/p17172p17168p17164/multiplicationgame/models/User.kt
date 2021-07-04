@@ -19,4 +19,5 @@ data class User(
     val email: String = "",
     @ServerTimestamp
     val dateRegistered: Date = Date(),
+    val admin: Boolean = false
 ) : Parcelable

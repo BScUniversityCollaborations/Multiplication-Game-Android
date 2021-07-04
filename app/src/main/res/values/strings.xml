@@ -121,6 +121,10 @@
     <string name="txt_type">Type</string>
     <string name="txt_no_history">No history found!</string>
     <string name="txt_no_history_2">Start by doing some multiplications to track your performance!</string>
+    <string name="txt_type_mistake">Mistakes</string>
+    <string name="txt_type_time_ups">Time Ups</string>
+    <string name="txt_type_solved">Solved</string>
+    <string name="txt_type_skips">Skips</string>
 
 
 </resources>

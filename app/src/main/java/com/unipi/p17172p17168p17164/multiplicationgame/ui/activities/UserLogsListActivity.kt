@@ -53,6 +53,7 @@ class UserLogsListActivity : BaseActivity() {
 
                     adapter = userLogAdapter
                 }
+                layoutEmptyState.root.visibility = View.GONE
             }
         }
         else
@@ -71,7 +72,7 @@ class UserLogsListActivity : BaseActivity() {
     private fun setupActionBar() {
         binding.toolbar.apply {
             setSupportActionBar(root)
-            textViewActionBarLabel.text = getString(R.string.txt_tables)
+            textViewActionBarLabel.text = getString(R.string.txt_history)
             imgBtnFilter.setOnClickListener {
                 CustomDialog().showFilterDialog(this@UserLogsListActivity)
             }
