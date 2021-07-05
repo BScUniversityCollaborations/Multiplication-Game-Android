@@ -34,10 +34,10 @@ class CustomDialog {
             textViewHeader.text = title
             textViewBody.text = body
             btnDismiss.setOnClickListener {
+                dialog.dismiss()
                 when (activity) {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
-                        dialog.dismiss()
                     }
                 }
             }
