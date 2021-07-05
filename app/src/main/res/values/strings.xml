@@ -127,4 +127,28 @@
     <string name="txt_type_skips">Skips</string>
 
 
+    [Forwarded from Αντρέας Θεοδωρίδης GR]
+    <!-- Help Texts -->
+    <string name="txt_main_help"><b><u>Help</u></b> <br/>\n
+        <b>1. How can i get a mathematical training?</b> <br/>\n
+        1.1 Push the button "LEARN". <br/>\n
+        1.2 Choose between the 3 sections or the TABLE section sliding right or left!! <br/>\n
+        2. How can i start a test? <br/>\n
+        2.1 You can start a test pushing the button "START TEST" from the main menu.<br/>\n
+        2.2 You can start a test pushing the button "TABLES" from the main menu and select the multiplications table you want to exercise.<br/>\n
+        <b>3. How can i see my profile details?</b> <br/>\n
+        3.1 You can see your profile details by pressing the button with the human figure from the main menu.<br/>\n
+        <b>4. How can i edit my name?</b> <br/>\n
+        4.1 You can edit your name by pressing the button with the human figure from the main menu.<br/>\n
+        4.2 Then push the button with the pencil on it which is located in the top right corner.<br/>\n
+        4.3 Write the name you want in the brackets and click the button "SAVE".<br/>\n
+        <b>5. How can i log out?</b><br/>\n
+        5.1 You can log out from the profile page by pressing the button with the human figure from the main menu and then press the button "LOGOUT".<br/>\n
+        <b>6. How can i see my progress?</b><br/>\n
+        6.1 You can see your progress by pressing the button "HISTORY"<br/>\n
+        6.2 You can sort your progress by date pressing the button which is located in the top right corner and select the option "DATE ADDED"<br/>\n
+        6.3 You can sort your progress by type pressing the button which is located in the top right corner and select the option "TYPE"
+    </string>
+
+
 </resources>
