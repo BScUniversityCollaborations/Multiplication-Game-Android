@@ -280,6 +280,12 @@ class TestActivity : BaseActivity() {
         stopTimer()
     }*/
 
+    override fun onStop() {
+        super.onStop()
+
+        stopTimer()
+    }
+
     private fun validateFields(): Boolean {
         binding.apply {
             return when {
