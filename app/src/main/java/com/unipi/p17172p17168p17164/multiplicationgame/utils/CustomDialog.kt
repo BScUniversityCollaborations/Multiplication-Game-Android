@@ -37,7 +37,8 @@ class CustomDialog {
                 dialog.dismiss()
                 when (activity) {
                     is TableResultActivity -> {
-                        activity.playButtonPressSound(activity)
+                        if (!activity.isFinishing())
+                            activity.playButtonPressSound(activity)
                     }
                 }
             }
@@ -67,16 +68,20 @@ class CustomDialog {
                 dialog.dismiss()
                 when (activity) {
                     is TableResultActivity -> {
-                        activity.playButtonPressSound(activity)
-                        activity.finish()
-                        activity.overridePendingTransition(R.anim.anim_slide_in_right,
-                            R.anim.anim_slide_out_right)
+                        if (!activity.isFinishing()) {
+                            activity.playButtonPressSound(activity)
+                            activity.finish()
+                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_right)
+                        }
                     }
                     is TestActivity -> {
-                        activity.playButtonPressSound(activity)
-                        activity.finish()
-                        activity.overridePendingTransition(R.anim.anim_slide_in_right,
-                            R.anim.anim_slide_out_right)
+                        if (!activity.isFinishing()) {
+                            activity.playButtonPressSound(activity)
+                            activity.finish()
+                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_right)
+                        }
                     }
                 }
             }
@@ -148,14 +153,19 @@ class CustomDialog {
                     dialog.dismiss()
                     when (activity) {
                         is TableResultActivity -> {
-                            activity.finish()
-                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
-                                R.anim.anim_slide_out_right)
+                            if (!activity.isFinishing()) {
+                                activity.finish()
+                                activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                    R.anim.anim_slide_out_right)
+                            }
+
                         }
                         is TestActivity -> {
-                            activity.finish()
-                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
-                                R.anim.anim_slide_out_right)
+                            if (!activity.isFinishing()) {
+                                activity.finish()
+                                activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                    R.anim.anim_slide_out_right)
+                            }
                         }
                     }
                 }
@@ -194,12 +204,18 @@ class CustomDialog {
                 btnDismiss.setOnClickListener {
                     when (activity) {
                         is TableResultActivity -> {
-                            activity.playButtonPressSound(activity)
-                            dismiss()
+                            if (!activity.isFinishing()) {
+                                activity.playButtonPressSound(activity)
+                                dismiss()
+                            }
+
                         }
                         is TestActivity -> {
-                            activity.playButtonPressSound(activity)
-                            dismiss()
+                            if (!activity.isFinishing()) {
+                                activity.playButtonPressSound(activity)
+                                dismiss()
+                            }
+
                         }
                     }
                 }
@@ -221,8 +237,11 @@ class CustomDialog {
             setOnDismissListener {
                 when (activity) {
                     is TableResultActivity -> {
-                        activity.checkAnswer(false)
-                        activity.goToNextEquation()
+                        if (!activity.isFinishing()) {
+                            activity.checkAnswer(false)
+                            activity.goToNextEquation()
+                        }
+
                     }
                     is TestActivity -> activity.finish()
                 }
