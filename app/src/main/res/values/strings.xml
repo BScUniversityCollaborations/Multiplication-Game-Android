@@ -128,38 +128,12 @@
 
 
     <!-- Help Texts -->
-    <string name="txt_main_help"><b><u>Help</u></b> <br/>\n
-        <b>1. How can i get a mathematical training?</b> <br/>\n
-        1.1 Push the button "LEARN". <br/>\n
-        1.2 Choose between the 3 sections or the TABLE section sliding right or left!! <br/>\n
-        2. How can i start a test? <br/>\n
-        2.1 You can start a test pushing the button "START TEST" from the main menu.<br/>\n
-        2.2 You can start a test pushing the button "TABLES" from the main menu and select the multiplications table you want to exercise.<br/>\n
-        <b>3. How can i see my profile details?</b> <br/>\n
-        3.1 You can see your profile details by pressing the button with the human figure from the main menu.<br/>\n
-        <b>4. How can i edit my name?</b> <br/>\n
-        4.1 You can edit your name by pressing the button with the human figure from the main menu.<br/>\n
-        4.2 Then push the button with the pencil on it which is located in the top right corner.<br/>\n
-        4.3 Write the name you want in the brackets and click the button "SAVE".<br/>\n
-        <b>5. How can i log out?</b><br/>\n
-        5.1 You can log out from the profile page by pressing the button with the human figure from the main menu and then press the button "LOGOUT".<br/>\n
-        <b>6. How can i see my progress?</b><br/>\n
-        6.1 You can see your progress by pressing the button "HISTORY"<br/>\n
-        6.2 You can sort your progress by date pressing the button which is located in the top right corner and select the option "DATE ADDED"<br/>\n
-        6.3 You can sort your progress by type pressing the button which is located in the top right corner and select the option "TYPE"
-    </string>
-
+    <string name="txt_help_title">Guide</string>
+    <string name="txt_main_help"><b>1. How can I get a mathematical training?</b> <br/>\n1.1 Push the button "LEARN".<br/>\n1.2 Choose between the 3 sections or the TABLE section sliding right or left!!<br/>\n2. How can I start a test?<br/>\n2.1 You can start a test pushing the button "START TEST" from the main menu.<br/>\n2.2 You can start a test pushing the button "TABLES" from the main menu and select the multiplications table you want to exercise.<br/>\n<b>3. How can I see my profile details?</b><br/>\n3.1 You can see your profile details by pressing the button with the human figure from the main menu.<br/>\n<b>4. How can I edit my name?</b> <br/>\n4.1 You can edit your name by pressing the button with the human figure from the main menu.<br/>\n4.2 Then push the button with the pencil on it which is located in the top right corner.<br/>\n4.3 Write the name you want in the brackets and click the button "SAVE".<br/>\n<b>5. How can I log out?</b><br/>\n5.1 You can log out from the profile page by pressing the button with the human figure from the main menu and then press the button "LOGOUT".<br/>\n<b>6. How can I see my progress?</b><br/>\n6.1 You can see your progress by pressing the button "HISTORY"<br/>\n6.2 You can sort your progress by date pressing the button which is located in the top right corner and select the option "DATE ADDED"<br/>\n6.3 You can sort your progress by type pressing the button which is located in the top right corner and select the option "TYPE"</string>
     <!-- Start Test Texts -->
-    <string name="txt_help_test"><b><u>Help</u></b> <br/>\n
-        Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\n
-        If you wrote the wrote an answer that you didn't want to you can press the button "CLEAR" to clear what you wrote and write again your answer.
-    </string>
+    <string name="txt_help_test">Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\nIf you wrote the wrote an answer that you didn\'t want to you can press the button "CLEAR" to clear what you wrote and write again your answer.</string>
     <!-- Start Test Tables Texts -->
-    <string name="txt_help_tables_test"><b><u>Help</u></b> <br/>\n
-        Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\n
-        If you don't know the answer you can press the button "SKIP" but it will be counted as a mistake!!<br/>\n
-        If you wrote the wrote an answer that you didn't want to you can press the button "CLEAR" to clear what you wrote and write again your answer.
-    </string>
+    <string name="txt_help_tables_test">Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\nIf you don\'t know the answer you can press the button "SKIP" but it will be counted as a mistake!!<br/>\nIf you wrote the wrote an answer that you didn\'t want to you can press the button "CLEAR" to clear what you wrote and write again your answer.</string>
 
 
 </resources>

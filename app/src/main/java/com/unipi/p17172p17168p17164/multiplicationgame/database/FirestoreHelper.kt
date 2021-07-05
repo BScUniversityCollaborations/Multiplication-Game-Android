@@ -14,6 +14,7 @@ import com.unipi.p17172p17168p17164.multiplicationgame.models.UserLog
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.*
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 
+
 class FirestoreHelper {
 
     // Access a Cloud Firestore instance.
@@ -160,6 +161,31 @@ class FirestoreHelper {
             }
     }
 
+    fun doesUserHaveLogs(activity: Activity) {
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .whereEqualTo(Constants.FIELD_USER_ID, getCurrentUserID())
+            .whereNotEqualTo(Constants.FIELD_TYPE, Constants.TYPE_SOLVED)
+            .get()
+            .addOnSuccessListener {
+                when (activity) {
+                    is TestActivity -> {
+                        if (it.size() > 0)
+                            activity.successUserHasLogs(true)
+                        else
+                            activity.successUserHasLogs(false)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is TestActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e("", "", e)
+            }
+    }
+
     /**
      * A function to get the user logs list from cloud firestore.
      *
@@ -205,6 +231,91 @@ class FirestoreHelper {
             }
     }
 
+    fun getRandomUserNegativeLogEntryGreater(activity: Activity) {
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .whereEqualTo(Constants.FIELD_USER_ID, getCurrentUserID())
+            .whereNotEqualTo(Constants.FIELD_TYPE, Constants.TYPE_SOLVED)
+            .orderBy(Constants.FIELD_TYPE, Query.Direction.ASCENDING)
+            .orderBy(Constants.FIELD_RANDOM, Query.Direction.ASCENDING)
+            .limit(1)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                val log = document.documents[0].toObject(UserLog::class.java)!!
+
+                when (activity) {
+                    is TestActivity -> {
+                        activity.successLogFromFireStore(log)
+                    }
+                    else -> {}
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is TestActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    else -> {}
+                }
+                Log.e("Get User Log", "Error while getting user log.", e)
+            }
+    }
+
+    fun getRandomUserNegativeLogEntryLess(activity: Activity) {
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .whereEqualTo(Constants.FIELD_USER_ID, getCurrentUserID())
+            .whereNotEqualTo(Constants.FIELD_TYPE, Constants.TYPE_SOLVED)
+            .orderBy(Constants.FIELD_TYPE, Query.Direction.DESCENDING)
+            .orderBy(Constants.FIELD_RANDOM, Query.Direction.DESCENDING)
+            .limit(1)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                val log = document.documents[0].toObject(UserLog::class.java)!!
+
+                when (activity) {
+                    is TestActivity -> {
+                        activity.successLogFromFireStore(log)
+                    }
+                    else -> {}
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is TestActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    else -> {}
+                }
+                Log.e("Get User Log", "Error while getting user log.", e)
+            }
+    }
+
+    fun deleteLogEntry(activity: Activity, numFirst: Int, numSecond: Int) {
+
+        // Collection name address.
+        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+            .whereEqualTo(Constants.FIELD_USER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.FIELD_NUM_FIRST, numFirst)
+            .whereEqualTo(Constants.FIELD_NUM_SECOND, numSecond)
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful)
+                    for (document in it.result!!) {
+                        dbFirestore.collection(Constants.COLLECTION_USER_LOGS)
+                            .document(document.id)
+                            .delete()
+                    }
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding the log entry.",
+                    e
+                )
+            }
+    }
+
     fun addLogEntry(activity: Activity, userLog: UserLog) {
 
         // Collection name address.
@@ -212,20 +323,7 @@ class FirestoreHelper {
             .document()
             // Here the userLog are Field and the SetOption is set to merge. It is for if we wants to merge
             .set(userLog, SetOptions.merge())
-            .addOnSuccessListener {
-
-                /*when (activity) {
-                    is TableResultActivity -> {
-                        activity.hideProgressDialog()
-                    }
-                }*/
-            }
             .addOnFailureListener { e ->
-                /*when (activity) {
-                    is TableResultActivity -> {
-                        activity.hideProgressDialog()
-                    }
-                }*/
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while adding the log entry.",

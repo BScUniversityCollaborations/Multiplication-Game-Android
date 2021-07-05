@@ -7,7 +7,6 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
@@ -15,31 +14,31 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.unipi.p17172.emarket.utils.SnackBarErrorClass
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.database.FirestoreHelper
-import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTableResultBinding
+import com.unipi.p17172p17168p17164.multiplicationgame.databinding.ActivityTestBinding
 import com.unipi.p17172p17168p17164.multiplicationgame.models.UserLog
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Constants
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.CustomDialog
 import com.unipi.p17172p17168p17164.multiplicationgame.utils.Utils
 
 
-class TableResultActivity : BaseActivity() {
+class TestActivity : BaseActivity() {
     // ~~~~~~~~ VARIABLES ~~~~~~~~
-    private lateinit var binding: ActivityTableResultBinding
+    private lateinit var binding: ActivityTestBinding
     private var numFirst: Int = 0
     private var numSecond: Int = 0
-    private var limit: Int = 10
     private var correctAnswers: Int = 0
     private var wrongAnswers: Int = 0
     private var correctResult: Int = -1
 
     private lateinit var state: String
+    private var isFromLogs: Boolean = false
 
     private lateinit var timer: CountDownTimer
     private var timerState = TimerState.Running
-    var millisInFuture: Long = Constants.DEFAULT_TABLE_TEST_TIMER_DELAY //30 seconds
+    var millisInFuture: Long = Constants.DEFAULT_TEST_TIMER_DELAY //60 seconds
     var countDownInterval: Long = 1000 //1 second
     //Declare a variable to hold CountDownTimer remaining time
-    private var timeRemaining: Long = 0
+    private var timeRemaining: Long = Constants.DEFAULT_TEST_TIMER_DELAY
 
     enum class TimerState {
         Stopped, Paused, Running, Finished
@@ -47,7 +46,7 @@ class TableResultActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTableResultBinding.inflate(layoutInflater)
+        binding = ActivityTestBinding.inflate(layoutInflater)
 
         init()
         setContentView(binding.root)
@@ -55,33 +54,89 @@ class TableResultActivity : BaseActivity() {
 
     private fun init() {
         checkIntentExtras()
+        initEquationNumbers()
         setupUI()
         startTimer()
     }
 
     private fun checkIntentExtras() {
-        intent.apply{
-            if (hasExtra(Constants.EXTRA_NUMBER_FIRST)
-                && hasExtra(Constants.EXTRA_NUMBER_SECOND)
-                && hasExtra(Constants.EXTRA_LIMIT)) {
-                    setEquationVariables()
-            }
+        intent.apply {
+            if (hasExtra(Constants.EXTRA_TIME_REMAINING))
+                timeRemaining = extras!!.getLong(Constants.EXTRA_TIME_REMAINING)
+            if (hasExtra(Constants.EXTRA_CORRECT_ANSWERS))
+                correctAnswers = extras!!.getInt(Constants.EXTRA_CORRECT_ANSWERS)
+            if (hasExtra(Constants.EXTRA_WRONG_ANSWERS))
+                wrongAnswers = extras!!.getInt(Constants.EXTRA_WRONG_ANSWERS)
         }
     }
 
-    private fun setEquationVariables() {
-        numFirst = intent.extras!!.getInt(Constants.EXTRA_NUMBER_FIRST)
-        numSecond = intent.extras!!.getInt(Constants.EXTRA_NUMBER_SECOND)
+    private fun checkIfUserHasLogs() {
 
-        correctAnswers = intent.extras!!.getInt(Constants.EXTRA_CORRECT_ANSWERS)
-        wrongAnswers = intent.extras!!.getInt(Constants.EXTRA_WRONG_ANSWERS)
+        showProgressDialog()
+        pauseTimer()
+
+        FirestoreHelper().doesUserHaveLogs(this)
+    }
+
+
+    private fun loadLogs() {
+
+        if (Utils().generateRandomNumber(0, 10) > 5)
+            FirestoreHelper().getRandomUserNegativeLogEntryGreater(this)
+        else
+            FirestoreHelper().getRandomUserNegativeLogEntryLess(this)
+    }
+
+    fun successLogFromFireStore(userLog: UserLog) {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+        startTimer()
+        isFromLogs = true
+
+        setEquation(userLog)
+    }
+
+    fun successUserHasLogs(isTrue: Boolean) {
+
+        if (isTrue)
+            loadLogs()
+        else {
+            hideProgressDialog()
+
+            numFirst = Utils().generateRandomNumber(1, 10)
+            numSecond = Utils().generateRandomNumber(1, 10)
+
+            setEquation(null)
+        }
+    }
+
+    private fun initEquationNumbers() {
+        if (Utils().generateRandomNumber(0, 10) > 5) {
+            checkIfUserHasLogs()
+        }
+        else {
+            numFirst = Utils().generateRandomNumber(1, 10)
+            numSecond = Utils().generateRandomNumber(1, 10)
+            setEquation(null)
+        }
+    }
+
+    private fun setEquation(userLog: UserLog?) {
+        if (userLog != null) {
+            numFirst = userLog.numFirst
+            numSecond = userLog.numSecond
+        }
 
         correctResult = numFirst * numSecond
-        limit = intent.extras!!.getInt(Constants.EXTRA_LIMIT)
 
         binding.apply {
             txtViewNumberFirst.text = numFirst.toString()
             txtViewNumberSecond.text = numSecond.toString()
+            toolbar.textViewLabel.text = String.format(getString(R.string.txt_equation_format),
+                numFirst,
+                numSecond
+            )
         }
     }
 
@@ -98,7 +153,7 @@ class TableResultActivity : BaseActivity() {
         timerState = TimerState.Running
 
         //Initialize a new CountDownTimer instance
-        timer = object : CountDownTimer(millisInFuture, countDownInterval) {
+        timer = object : CountDownTimer(timeRemaining, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
                 //do something in every tick
                 if (timerState == TimerState.Paused
@@ -119,11 +174,11 @@ class TableResultActivity : BaseActivity() {
                         progressBarTimer.progress = secondsRemaining.toInt()
 
                         if (currentSeconds / 2 == secondsRemaining) {
-                            progressBarTimer.progressDrawable = AppCompatResources.getDrawable(this@TableResultActivity, R.drawable.progress_bar_middle)
+                            progressBarTimer.progressDrawable = AppCompatResources.getDrawable(this@TestActivity, R.drawable.progress_bar_middle)
                             txtViewTimerValue.setTextColor(getColor(R.color.colorYellow))
                         }
                         else if (currentSeconds / 4 == secondsRemaining) {
-                            progressBarTimer.progressDrawable = AppCompatResources.getDrawable(this@TableResultActivity, R.drawable.progress_bar_low)
+                            progressBarTimer.progressDrawable = AppCompatResources.getDrawable(this@TestActivity, R.drawable.progress_bar_low)
                             txtViewTimerValue.setTextColor(getColor(R.color.colorRedLight))
                         }
 
@@ -139,13 +194,15 @@ class TableResultActivity : BaseActivity() {
                 }
             }
             override fun onFinish() {
-                stopTimer()
                 //Do something when count down finished
+                stopTimer()
                 binding.progressBarTimer.progress = 0
                 timerState = TimerState.Finished
-                CustomDialog().showTimeOut(this@TableResultActivity)
+                CustomDialog().showTestResults(this@TestActivity, correctAnswers.toString(), wrongAnswers.toString())
+                return
             }
-        }.start()
+        }
+        timer.start()
     }
 
     fun checkAnswer(skip: Boolean) {
@@ -158,14 +215,16 @@ class TableResultActivity : BaseActivity() {
                 val userAnswer = txtInput.text.toString().trim { it <= ' ' }.toInt()
                 if (userAnswer == correctResult) {
                     state = Constants.TYPE_SOLVED
-                    CustomDialog().showCorrectAnswerDialog(this@TableResultActivity)
-                    playPositiveSound(this@TableResultActivity)
+                    CustomDialog().showCorrectAnswerDialog(this@TestActivity)
+                    playPositiveSound(this@TestActivity)
                     correctAnswers++
+                    if (isFromLogs)
+                        FirestoreHelper().deleteLogEntry(this@TestActivity, numFirst, numSecond)
                 }
                 else {
                     state = Constants.TYPE_MISTAKE
-                    CustomDialog().showWrongAnswerDialog(this@TableResultActivity)
-                    playNegativeSound(this@TableResultActivity)
+                    CustomDialog().showWrongAnswerDialog(this@TestActivity)
+                    playNegativeSound(this@TestActivity)
                     wrongAnswers++
                 }
             }
@@ -183,29 +242,18 @@ class TableResultActivity : BaseActivity() {
         )
         FirestoreHelper().addLogEntry(this, userLog)
 
-        numSecond++
-        if (numSecond > limit) {
-            CustomDialog().showTestResults(
-                this@TableResultActivity,
-                correctAnswers.toString(),
-                wrongAnswers.toString())
-            return
-        }
-
         // If next number of table is not bigger than the limit e.x. bigger than 10
-        val intent = Intent(this@TableResultActivity, TableResultActivity::class.java)
-        intent.putExtra(Constants.EXTRA_NUMBER_FIRST, numFirst)
-        intent.putExtra(Constants.EXTRA_NUMBER_SECOND, numSecond)
+        val intent = Intent(this@TestActivity, TestActivity::class.java)
+        intent.putExtra(Constants.EXTRA_TIME_REMAINING, timeRemaining)
         intent.putExtra(Constants.EXTRA_CORRECT_ANSWERS, correctAnswers)
         intent.putExtra(Constants.EXTRA_WRONG_ANSWERS, wrongAnswers)
-        intent.putExtra(Constants.EXTRA_LIMIT, limit)
         finish()
         startActivity(intent)
     }
 
     private fun pauseTimer() {
         timerState = TimerState.Paused
-        startTimer()
+        //startTimer()
     }
 
     private fun stopTimer() {
@@ -213,7 +261,7 @@ class TableResultActivity : BaseActivity() {
         timer.cancel()
     }
 
-/*    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
 
         startTimer()
@@ -241,9 +289,9 @@ class TableResultActivity : BaseActivity() {
                         .show()
                     txtInputLayout.requestFocus()
                     txtInputLayout.error = getString(R.string.txt_error_empty_answer)
-                    playNegativeSound(this@TableResultActivity)
+                    playNegativeSound(this@TestActivity)
                     btnNext.startAnimation(AnimationUtils.loadAnimation(
-                        this@TableResultActivity, R.anim.anim_shake))
+                        this@TestActivity, R.anim.anim_shake))
                     false
                 }
                 else -> true
@@ -258,10 +306,9 @@ class TableResultActivity : BaseActivity() {
         binding.apply {
             // Let's set the max progress value to the actual starting timer.
             progressBarTimer.max = (millisInFuture / 1000).toInt()
-
             txtInput.setOnFocusChangeListener { v, hasFocus ->
                 if (!hasFocus)
-                    Utils().hideSoftKeyboard(this@TableResultActivity, v)
+                    Utils().hideSoftKeyboard(this@TestActivity, v)
             }
             txtInput.addTextChangedListener(object: TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -280,21 +327,17 @@ class TableResultActivity : BaseActivity() {
     private fun setupClickListeners() {
         binding.apply {
             btnNext.setOnClickListener {
-                playButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TestActivity)
                 if (validateFields()) {
                     checkAnswer(false)
                 }
             }
-            btnSkip.setOnClickListener {
-                playButtonPressSound(this@TableResultActivity)
-                CustomDialog().showSkipConfirmation(this@TableResultActivity)
-            }
             btnClear.setOnClickListener {
-                playButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TestActivity)
                 txtInput.setText("")
             }
             imgViewArrowLeft.setOnClickListener{
-                playButtonPressSound(this@TableResultActivity)
+                playButtonPressSound(this@TestActivity)
                 // Focus the text input box
                 txtInputLayout.requestFocus()
                 // Hide soft keyboard
@@ -306,9 +349,9 @@ class TableResultActivity : BaseActivity() {
                 )
             }
             fltBtnHelp.setOnClickListener {
-                playButtonPressSound(this@TableResultActivity)
-                CustomDialog().showTip(this@TableResultActivity,
-                    getString(R.string.txt_help_title), getString(R.string.txt_help_tables_test))
+                playButtonPressSound(this@TestActivity)
+                CustomDialog().showTip(this@TestActivity,
+                    getString(R.string.txt_help_title), getString(R.string.txt_help_test))
             }
         }
     }
@@ -316,10 +359,11 @@ class TableResultActivity : BaseActivity() {
     private fun setupActionBar() {
         binding.toolbar.apply {
             setSupportActionBar(root)
-            // Set action bar title format to "Table of Z (Z x Y)"
-            textViewLabel.text = String.format(getString(R.string.txt_table_format),
-                numFirst.toString(),
-                numFirst.toString() + "x" + numSecond.toString())
+            // Set action bar title format to "Z x Y"
+            textViewLabel.text = String.format(getString(R.string.txt_equation_format),
+                numFirst,
+                numSecond
+            )
         }
 
         val actionBar = supportActionBar
@@ -345,7 +389,7 @@ class TableResultActivity : BaseActivity() {
     }
 
     private fun exitDialog() {
-        playButtonPressSound(this@TableResultActivity)
-        CustomDialog().showExitConfirmation(this@TableResultActivity)
+        playButtonPressSound(this@TestActivity)
+        CustomDialog().showExitConfirmation(this@TestActivity)
     }
 }

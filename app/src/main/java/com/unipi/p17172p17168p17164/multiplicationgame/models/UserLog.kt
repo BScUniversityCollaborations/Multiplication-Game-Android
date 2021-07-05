@@ -16,6 +16,7 @@ import java.util.*
 data class UserLog(
     val userId: String = "",
     val type: String = "", // time_up, skip, mistake, solved
+    val random: Int = 1,
     val numFirst: Int = 0,
     val numSecond: Int = 0,
     @ServerTimestamp

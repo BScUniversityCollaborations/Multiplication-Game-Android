@@ -18,7 +18,8 @@ object Constants {
     const val SPLASH_SCREEN_DELAY: Long = 1500
     const val VOLUME_MEDIUM: Float = 75f
     const val VOLUME_MAX: Float = 100f
-    const val DEFAULT_TEST_TIMER_DELAY: Long = 60000
+    const val DEFAULT_TABLE_TEST_TIMER_DELAY: Long = 20000
+    const val DEFAULT_TEST_TIMER_DELAY: Long = 6000
     val DATE_FORMAT: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ROOT)
     val SNACKBAR_BEHAVIOR = BaseTransientBottomBar.Behavior().apply {
         setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY) }
@@ -33,9 +34,11 @@ object Constants {
     const val FIELD_DATE_ADDED: String = "dateAdded"
     const val FIELD_TYPE: String = "type"
     const val FIELD_FULL_NAME: String = "fullName"
+    const val FIELD_NUM_FIRST: String = "numFirst"
     const val FIELD_NUM_SECOND: String = "numSecond"
     const val FIELD_NUMBER: String = "number"
     const val FIELD_USER_ID: String = "userId"
+    const val FIELD_RANDOM: String = "random"
     const val TYPE_SKIP: String = "Skip"
     const val TYPE_TIME_UP: String = "Time Up"
     const val TYPE_MISTAKE: String = "Mistake"
@@ -49,6 +52,7 @@ object Constants {
     const val EXTRA_CORRECT_ANSWERS: String = "extraCorrectAnswers"
     const val EXTRA_WRONG_ANSWERS: String = "extraWrongAnswers"
     const val EXTRA_LIMIT: String = "extraLimit"
+    const val EXTRA_TIME_REMAINING: String = "extraTimeRemaining"
     const val EXTRA_REG_USERS_SNACKBAR: String = "extraShowRegisteredUserSnackbar"
     const val EXTRA_SUCCESS_SNACKBAR: String = "extraShowSuccessSnackbar"
 }

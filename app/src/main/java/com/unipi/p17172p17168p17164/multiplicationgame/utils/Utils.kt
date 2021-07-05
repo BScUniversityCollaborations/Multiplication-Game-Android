@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import kotlin.random.Random
 
 class Utils {
 
@@ -13,4 +14,11 @@ class Utils {
             context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
         inputMethodManager!!.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+    fun generateRandomNumber(start: Int, end: Int): Int {
+        require(start <= end) { "Illegal Argument" }
+        val rand = Random(System.nanoTime())
+        return (start..end).random(rand)
+    }
+
 }

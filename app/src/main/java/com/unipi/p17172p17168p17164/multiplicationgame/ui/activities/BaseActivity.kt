@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit
  * It inherits the AppCompatActivity class so in other activity class we will replace the AppCompatActivity with BaseActivity.
  */
 open class BaseActivity : AppCompatActivity() {
-    private lateinit var player: MediaPlayer
 
     // Create an executor that executes tasks in a background thread.
     private val backgroundExecutor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
@@ -90,6 +89,11 @@ open class BaseActivity : AppCompatActivity() {
         intent.putExtra(Constants.EXTRA_SUCCESS_SNACKBAR, showEditSuccessSnackBar)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    fun goToTestActivity(context: Context) {
+        val intent = Intent(context, TestActivity::class.java)
         startActivity(intent)
     }
 

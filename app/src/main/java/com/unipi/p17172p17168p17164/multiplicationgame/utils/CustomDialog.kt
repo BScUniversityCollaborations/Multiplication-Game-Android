@@ -10,26 +10,23 @@ import android.view.WindowManager
 import com.unipi.p17172p17168p17164.multiplicationgame.R
 import com.unipi.p17172p17168p17164.multiplicationgame.databinding.*
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TableResultActivity
+import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.TestActivity
 import com.unipi.p17172p17168p17164.multiplicationgame.ui.activities.UserLogsListActivity
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class CustomDialog {
+
     fun showTip(activity: Activity, title: String, body: String) {
         val dialog = Dialog(activity)
         val binding = DialogTipBinding.inflate(LayoutInflater.from(activity))
-        dialog.setContentView(binding.root)
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(true)
         dialog.window?.setWindowAnimations(R.style.DialogAnimation)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        dialog.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        )
 
         dialog.setContentView(binding.root)
 
@@ -40,7 +37,7 @@ class CustomDialog {
                 when (activity) {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
-                        activity.checkAnswer(true)
+                        dialog.dismiss()
                     }
                 }
             }
@@ -67,6 +64,7 @@ class CustomDialog {
         binding.apply {
             btnDismiss.setOnClickListener { dialog.dismiss() }
             btnYes.setOnClickListener {
+                dialog.dismiss()
                 when (activity) {
                     is TableResultActivity -> {
                         activity.playButtonPressSound(activity)
@@ -74,8 +72,13 @@ class CustomDialog {
                         activity.overridePendingTransition(R.anim.anim_slide_in_right,
                             R.anim.anim_slide_out_right)
                     }
+                    is TestActivity -> {
+                        activity.playButtonPressSound(activity)
+                        activity.finish()
+                        activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                            R.anim.anim_slide_out_right)
+                    }
                 }
-                dialog.dismiss()
             }
         }
 
@@ -104,6 +107,11 @@ class CustomDialog {
                         activity.checkAnswer(true)
                         activity.goToNextEquation()
                     }
+                    is TestActivity -> {
+                        activity.playButtonPressSound(activity)
+                        activity.checkAnswer(true)
+                        activity.goToNextEquation()
+                    }
                 }
                 dialog.dismiss()
             }
@@ -111,6 +119,53 @@ class CustomDialog {
 
         dialog.show()
     }
+
+    fun showTestResults(activity: Activity, correctAnswers: String, wrongAnswers: String) {
+        val dialog = Dialog(activity)
+        val binding = DialogTestResultsBinding.inflate(LayoutInflater.from(activity))
+
+        // Dialog Properties
+        dialog.run {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCanceledOnTouchOutside(false)
+            window?.apply {
+                // Add some show/hide dialog animations.
+                setWindowAnimations(R.style.DialogAnimation)
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                )
+            }
+
+            setContentView(binding.root)
+
+            // Set dialog title and body and also add click event listeners.
+            binding.apply {
+                textViewCorrectAnswersValue.text = correctAnswers
+                textViewWrongAnswersValue.text = wrongAnswers
+                btnDismiss.setOnClickListener {
+                    dialog.dismiss()
+                    when (activity) {
+                        is TableResultActivity -> {
+                            activity.finish()
+                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_right)
+                        }
+                        is TestActivity -> {
+                            activity.finish()
+                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_right)
+                        }
+                    }
+                }
+            }
+
+            // Show dialog
+            show()
+        }
+    }
+
 
     fun showTimeOut(activity: Activity) {
         val dialog = Dialog(activity)
@@ -140,12 +195,18 @@ class CustomDialog {
                     when (activity) {
                         is TableResultActivity -> {
                             activity.playButtonPressSound(activity)
-                            activity.checkAnswer(false)
+                            dismiss()
+                        }
+                        is TestActivity -> {
+                            activity.playButtonPressSound(activity)
+                            dismiss()
                         }
                     }
-                    dismiss()
                 }
             }
+
+            // Show dialog
+            show()
 
             // Create an executor that executes tasks in a background thread.
             val backgroundExecutor: ScheduledExecutorService =
@@ -159,12 +220,13 @@ class CustomDialog {
             // When the dialog is dismiss go to next equation.
             setOnDismissListener {
                 when (activity) {
-                    is TableResultActivity -> activity.checkAnswer(false)
+                    is TableResultActivity -> {
+                        activity.checkAnswer(false)
+                        activity.goToNextEquation()
+                    }
+                    is TestActivity -> activity.finish()
                 }
             }
-
-            // Show dialog
-            show()
         }
     }
 
@@ -236,6 +298,9 @@ class CustomDialog {
                         is TableResultActivity -> {
                             activity.playButtonPressSound(activity)
                         }
+                        is TestActivity -> {
+                            activity.playButtonPressSound(activity)
+                        }
                     }
                     dismiss()
                 }
@@ -254,6 +319,7 @@ class CustomDialog {
             setOnDismissListener {
                 when (activity) {
                     is TableResultActivity -> activity.goToNextEquation()
+                    is TestActivity -> activity.goToNextEquation()
                 }
             }
 
@@ -286,9 +352,8 @@ class CustomDialog {
             binding.apply {
                 btnDismiss.setOnClickListener {
                     when (activity) {
-                        is TableResultActivity -> {
-                            activity.playButtonPressSound(activity)
-                        }
+                        is TableResultActivity -> activity.playButtonPressSound(activity)
+                        is TestActivity -> activity.playButtonPressSound(activity)
                     }
                     dismiss()
                 }
@@ -307,47 +372,7 @@ class CustomDialog {
             setOnDismissListener {
                 when (activity) {
                     is TableResultActivity -> activity.goToNextEquation()
-                }
-            }
-
-            // Show dialog
-            show()
-        }
-    }
-
-    fun showTestResults(activity: Activity, correctAnswers: String, wrongAnswers: String) {
-        val dialog = Dialog(activity)
-        val binding = DialogTestResultsBinding.inflate(LayoutInflater.from(activity))
-
-        // Dialog Properties
-        dialog.run {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setCanceledOnTouchOutside(false)
-            window?.apply {
-                // Add some show/hide dialog animations.
-                setWindowAnimations(R.style.DialogAnimation)
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                )
-            }
-
-            setContentView(binding.root)
-
-            // Set dialog title and body and also add click event listeners.
-            binding.apply {
-                textViewCorrectAnswersValue.text = correctAnswers
-                textViewWrongAnswersValue.text = wrongAnswers
-                btnDismiss.setOnClickListener {
-                    dialog.dismiss()
-                    when (activity) {
-                        is TableResultActivity -> {
-                            activity.finish()
-                            activity.overridePendingTransition(R.anim.anim_slide_in_right,
-                                R.anim.anim_slide_out_right)
-                        }
-                    }
+                    is TestActivity -> activity.goToNextEquation()
                 }
             }
 

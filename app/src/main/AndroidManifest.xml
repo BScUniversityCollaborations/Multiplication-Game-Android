@@ -129,6 +129,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.MainMenuActivity" />
         </activity>
+
+        <!-- Test activity -->
+        <activity
+            android:name=".ui.activities.TestActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MultiplicationGame" />
         <!-- endregion [END Activities] -->
 
     </application>
