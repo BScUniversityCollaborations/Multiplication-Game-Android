@@ -149,5 +149,17 @@
         6.3 You can sort your progress by type pressing the button which is located in the top right corner and select the option "TYPE"
     </string>
 
+    <!-- Start Test Texts -->
+    <string name="txt_help_test"><b><u>Help</u></b> <br/>\n
+        Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\n
+        If you wrote the wrote an answer that you didn't want to you can press the button "CLEAR" to clear what you wrote and write again your answer.
+    </string>
+    <!-- Start Test Tables Texts -->
+    <string name="txt_help_tables_test"><b><u>Help</u></b> <br/>\n
+        Write your answer in the brackets, you can press the arrow button to write and press the button "NEXT" to see the next equation.<br/>\n
+        If you don't know the answer you can press the button "SKIP" but it will be counted as a mistake!!<br/>\n
+        If you wrote the wrote an answer that you didn't want to you can press the button "CLEAR" to clear what you wrote and write again your answer.
+    </string>
+
 
 </resources>
