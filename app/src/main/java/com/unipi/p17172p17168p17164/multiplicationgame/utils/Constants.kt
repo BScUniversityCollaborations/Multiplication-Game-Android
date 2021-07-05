@@ -19,7 +19,7 @@ object Constants {
     const val VOLUME_MEDIUM: Float = 75f
     const val VOLUME_MAX: Float = 100f
     const val DEFAULT_TABLE_TEST_TIMER_DELAY: Long = 20000
-    const val DEFAULT_TEST_TIMER_DELAY: Long = 6000
+    const val DEFAULT_TEST_TIMER_DELAY: Long = 60000
     val DATE_FORMAT: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ROOT)
     val SNACKBAR_BEHAVIOR = BaseTransientBottomBar.Behavior().apply {
         setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY) }
